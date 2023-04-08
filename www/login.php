@@ -21,7 +21,7 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
     'crewmember' => 'crewmembers'
   );
   foreach ($ALL_USERS as $t=>$db) {
-    $result = $conn->query($conn, "SELECT id, login, password from ". $db. " where login=\"". $uname. "\" and password=\"". $pass. "\"");
+    $result = $conn->query("SELECT id, login, password from ". $db. " where login=\"". $uname. "\" and password=\"". $pass. "\"");
 
     if(mysqli_num_rows($result)){
       $r = $result->fetch_assoc();
