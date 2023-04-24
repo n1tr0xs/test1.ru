@@ -1,26 +1,15 @@
 <?php
-
+// $_SESSION['user'], $_SESSION['uid'], $_SESSION['user_type']
+include "db_conn.php";
+include "funcs.php";
 session_start();
 
-include "db_conn.php";
-
 if (isset($_POST['uname']) && isset($_POST['password'])) {
-  function validate($data){
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
 
   $uname = validate($_POST['uname']);
   $pass = validate($_POST['password']);
 
-  $ALL_USERS = array(
-    'user' => 'users',
-    'operator' => 'operators',
-    'crewmember' => 'crewmembers'
-  );
-  foreach ($ALL_USERS as $t=>$db) {
+  foreach ($ALL_USER_TYPES as $t=>$db) {
     $result = $conn->query("SELECT id, login, password from ". $db. " where login=\"". $uname. "\" and password=\"". $pass. "\"");
 
     if(mysqli_num_rows($result)){
@@ -32,7 +21,26 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
       break;
     }
     else {
-      header("Location: /login.html?error=login");
+      header("Location: /login.php?act=error");
     }
   }
 }
+
+if (isset($_GET['act']) && ($_GET['act'] == 'logout')){
+  session_unset();
+}
+?>
+<html>
+<head>
+</head>
+<body>
+  <form action="login.php" method="post">
+    <label>Логин</label>
+    <input type="text" name="uname" placeholder="User Name" required><br>
+    <label>Пароль</label>
+    <input type="password" name="password" placeholder="Password" required><br>
+    <? if (isset($_GET['act']) && $_GET['act'] == 'error') echo "Неверный логин/пароль<br>"; ?>
+    <button type="submit">Войти</button>
+  </form>
+</body>
+</html>

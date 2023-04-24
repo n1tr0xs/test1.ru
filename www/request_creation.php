@@ -17,4 +17,4 @@ $conn->query(
   (".$id.", ".$_POST['type']." , ".$_POST['category']." , ".$_SESSION['uid']." , NULL, NULL, '0', ".$_POST['description'].");"
 );
 
-header('location: user_page.php');
+header('location: my_requests.php');
