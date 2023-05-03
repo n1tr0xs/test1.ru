@@ -2,8 +2,8 @@
 include("db_conn.php");
 session_start();
 
-$my_data = $conn->query("Select * from ". $ALL_USER_TYPES[$_SESSION['user_type']]. " where id=\"". $_SESSION['uid']. "\"")->fetch_assoc();
-$street = $conn->query("Select * from streets where id=". $my_data['street_id'])->fetch_assoc();
+$my_data = $conn->query("Select * from {$ALL_USER_TYPES[$_SESSION['user_type']]} where id='{$_SESSION['uid']}'")->fetch_assoc();
+$street = $conn->query("Select * from streets where id='{$my_data['street_id']}'")->fetch_assoc();
 ?>
 
 <html>

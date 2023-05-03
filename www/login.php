@@ -3,14 +3,16 @@
 include "db_conn.php";
 include "funcs.php";
 session_start();
+?>
 
+<?
 if (isset($_POST['uname']) && isset($_POST['password'])) {
 
   $uname = validate($_POST['uname']);
   $pass = validate($_POST['password']);
 
   foreach ($ALL_USER_TYPES as $t=>$db) {
-    $result = $conn->query("SELECT id, login, password from ". $db. " where login=\"". $uname. "\" and password=\"". $pass. "\"");
+    $result = $conn->query("SELECT id, login, password from {$db} where login='{$uname}' and password='{$pass}'");
 
     if(mysqli_num_rows($result)){
       $r = $result->fetch_assoc();
@@ -25,11 +27,14 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
     }
   }
 }
+?>
 
+<?
 if (isset($_GET['act']) && ($_GET['act'] == 'logout')){
   session_unset();
 }
 ?>
+
 <html>
 <head>
 </head>
@@ -39,7 +44,7 @@ if (isset($_GET['act']) && ($_GET['act'] == 'logout')){
     <input type="text" name="uname" placeholder="User Name" required><br>
     <label>Пароль</label>
     <input type="password" name="password" placeholder="Password" required><br>
-    <? if (isset($_GET['act']) && $_GET['act'] == 'error') echo "Неверный логин/пароль<br>"; ?>
+    <? if (isset($_GET['act']) && $_GET['act'] == 'error') echo "Неверный логин или пароль<br>"; ?>
     <button type="submit">Войти</button>
   </form>
 </body>

@@ -8,7 +8,7 @@ include 'db_conn.php';
   <select name='type'>
     <?php
     foreach ($conn->query('SELECT * from servicetypes')->fetch_all(MYSQLI_ASSOC) as $row)
-      echo "<option value=\"". $row['id']. "\"> ". $row['type']. " </option>";
+      echo "<option value={$row['id']}> {$row['type']} </option>";
     ?>
   </select>
   <br>
@@ -16,7 +16,7 @@ include 'db_conn.php';
   <select name='category'>
     <?php
     foreach ($conn->query('SELECT * from servicecategories')->fetch_all(MYSQLI_ASSOC) as $row)
-      echo "<option value=\"". $row['id']. "\"> ". $row['category']. " </option>";
+      echo "<option value={$row['id']}> {$row['category']} </option>";
     ?>
   </select>
   <br>
