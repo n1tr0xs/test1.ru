@@ -3,9 +3,11 @@
 include "db_conn.php";
 include "funcs.php";
 session_start();
-?>
 
-<?
+if (isset($_GET['act']) && ($_GET['act'] == 'logout')){
+  session_unset();
+}
+
 if (isset($_POST['uname']) && isset($_POST['password'])) {
 
   $uname = validate($_POST['uname']);
@@ -22,16 +24,7 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
       header("Location: /index.php");
       break;
     }
-    else {
-      header("Location: /login.php?act=error");
-    }
   }
-}
-?>
-
-<?
-if (isset($_GET['act']) && ($_GET['act'] == 'logout')){
-  session_unset();
 }
 ?>
 
