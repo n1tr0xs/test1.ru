@@ -8,8 +8,6 @@ auth_redirect();
 <header>
 </header>
 <body>
-
-<?  echo $_SESSION['uid']; ?>
   <a href="profile.php"> Мой профиль </a>
   <br>
   <a href="create_request.php"> Новая заявка </a>

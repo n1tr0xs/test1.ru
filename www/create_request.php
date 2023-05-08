@@ -1,10 +1,12 @@
 <?php
 session_start();
 include 'db_conn.php';
+include 'funcs.php';
+auth_redirect();
 ?>
 
 <form action='request_creation.php' method="post">
-  <label>Service type:</label>
+  <label>Выбери тип работ:</label>
   <select name='type'>
     <?php
     foreach ($conn->query('SELECT * from servicetypes')->fetch_all(MYSQLI_ASSOC) as $row)
@@ -12,7 +14,7 @@ include 'db_conn.php';
     ?>
   </select>
   <br>
-  <label>Service category:</label>
+  <label>Выберите категорию работ:</label>
   <select name='category'>
     <?php
     foreach ($conn->query('SELECT * from servicecategories')->fetch_all(MYSQLI_ASSOC) as $row)
@@ -20,10 +22,10 @@ include 'db_conn.php';
     ?>
   </select>
   <br>
-  <label>Address:</label>
-  <input name="address"/>
+  <label>Введите адрес:</label>
+  <input name="address" required/>
   <br>
   <textarea name="description" cols="50" rows="10" placeholder="Description" required></textarea>
   <br>
-  <button type='submit'> Создать заявку </button>
+  <button type='submit'>Создать заявку</button>
 </form>
