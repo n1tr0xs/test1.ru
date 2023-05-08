@@ -25,5 +25,5 @@ include 'db_conn.php';
   <br>
   <textarea name="description" cols="50" rows="10" placeholder="Description" required></textarea>
   <br>
-  <button type='submit'> Create </button>
+  <button type='submit'> Создать заявку </button>
 </form>

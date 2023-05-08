@@ -1,20 +1,10 @@
-<?php
-session_start();
-
-if (isset($_SESSION['user'])){
-    switch ($_SESSION['user_type']) {
-      case 'user':
-        header("location: /user_page.php");
-        break;
-      case 'operator':
-        header("location: /operator_page.php");
-        break;
-      case 'crewmember':
-        header("location: /crewmember_page.php");
-        break;
-    }
-}
-else {
-  header("Location: /login.php");
-}
- ?>
+<html>
+<head>
+  <title> </title>
+</head>
+<body>
+  <iframe src='header.html' name='header' width='100%' height='20%'> </iframe>
+  <iframe src='login.php' name='content' width='100%' height='55%'> </iframe>
+  <iframe src='footer.html' name='footer' width='100%' height='20%'> </iframe>
+</body>
+</html>
