@@ -27,14 +27,30 @@ function request_info($row){
   $arr = array("Не расммотрена", "Принята", "Назначена на", "Отклонена");
   $status = $arr[$row['status']];
 
-  return array($type, $category, $status, $row['description'], $row['creation_date']);
+  return array($type, $category, $status, $row['description'], $row['creation_date'], $row['id']);
 }
 
 function print_request_for_user($r){
   $r_info = request_info($r);
   $date = date('d-m-Y',strtotime($r_info[4]));
+
   echo "<div class='request_for_user'>";
   echo "$r_info[0] $r_info[1] $r_info[2] $r_info[3] Создана: $date";
   echo "</div>";
+}
+
+function print_request_for_operator($r){
+  $r_info = request_info($r);
+  $date = date('d-m-Y',strtotime($r_info[4]));
+  $id = $r_info[5];
+
+  echo "<div class='request_for_user'>";
+  echo "$r_info[0] $r_info[1] $r_info[2] $r_info[3] Создана: $date";
+  echo "<button onclick=\"window.location.href='request.php?id={$id}'\">Обработать заявку</button>";
+  echo "</div>";
+}
+
+function print_request($r){
+  
 }
 ?>
