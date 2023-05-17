@@ -9,13 +9,13 @@ $street = $conn->query("Select * from streets where id='{$my_data['street_id']}'
 <html>
 <head> </head>
   <body>
-  <label>Логин:</label>
+  <label>пїЅпїЅпїЅпїЅпїЅ:</label>
   <label><? echo $my_data['login']; ?> </label>
-  <br>
-  <label>Фамилия Имя Отчество:</label>
+  
+  <label>пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:</label>
   <label> <? echo $my_data['fio']; ?> </label>
-  <br>
-  <label>Адрес:</label>
+  
+  <label>пїЅпїЅпїЅпїЅпїЅ:</label>
   <label> <? echo $street['street_type']. $street['street_name']. ", ". $my_data['house']. ", ". $my_data['flat']; ?> </label>
 </body>
 </html>

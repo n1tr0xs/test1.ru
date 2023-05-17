@@ -13,7 +13,7 @@ $result = $result->fetch_assoc();
 $info = request_info($result);
 $id = $info[5];
 foreach ($info as $key => $value) {
-  echo "{$key} - {$value} <br>";
+  echo "{$key} - {$value} ";
 }
 ?>
 <form action='accept_exec.php' method='post'>
@@ -24,5 +24,5 @@ foreach ($info as $key => $value) {
       echo "<option value={$row['id']}> {$row['name']} </option>";
     ?>
   </select>
-  <button type='submit'>Направить запрос команде</button>
+  <button type='submit'>РџСЂРёРЅСЏС‚СЊ Р·Р°СЏРІРєСѓ</button>
 </form>

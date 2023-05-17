@@ -60,12 +60,12 @@ if (isset($_POST) && isset($_POST['uname']) && isset($_POST['password'])) {
 </head>
 <body>
   <form action="login.php" method="post">
-    <label>Логин</label>
-    <input type="text" name="uname" placeholder="User Name" required><br>
-    <label>Пароль</label>
-    <input type="password" name="password" placeholder="Password" required><br>
-    <? if (isset($_GET['act']) && $_GET['act'] == 'error') echo "Неверный логин или пароль<br>"; ?>
-    <button type="submit">Войти</button>
+    <label>пїЅпїЅпїЅпїЅпїЅ</label>
+    <input type="text" name="uname" placeholder="User Name" required>
+    <label>пїЅпїЅпїЅпїЅпїЅпїЅ</label>
+    <input type="password" name="password" placeholder="Password" required>
+    <? if (isset($_GET['act']) && $_GET['act'] == 'error') echo "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ"; ?>
+    <button type="submit">Р’РѕР№С‚Рё</button>
   </form>
 </body>
 </html>

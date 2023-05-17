@@ -13,12 +13,12 @@ $result = $result->fetch_assoc();
 $info = request_info($result);
 $id = $info[5];
 foreach ($info as $key => $value) {
-  echo "{$key} - {$value} <br>";
+  echo "{$key} - {$value} ";
 }
 ?>
 <form action='decline_exec.php' method='post'>
   <input name='id' type='hidden' value=<?echo $id; ?>> </input>
-  <textarea name="description" cols="50" rows="10" placeholder="Причина отклонения" required></textarea>
+  <textarea name="description" cols="50" rows="10" placeholder="РџСЂРёС‡РёРЅР° РѕС‚РєР»РѕРЅРµРЅРёСЏ Р·Р°РїСЂРѕСЃР°" required></textarea>
   </select>
-  <button type='submit'>Отклонить запрос</button>
+  <button type='submit'>РћС‚РєР»РѕРЅРёС‚СЊ Р·Р°РїСЂРѕСЃ</button>
 </form>

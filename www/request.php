@@ -12,6 +12,6 @@ $result = $result->fetch_assoc();
 $info = request_info($result);
 $id = $info[5];
 foreach ($info as $key => $value) {
-  echo "{$key} - {$value} <br>";
+  echo "{$key} - {$value} ";
 }
-echo "<button onclick=\"window.location.href='accept.php?id={$id}'\">Принять запрос</button> <button onclick=\"window.location.href='decline.php?id={$id}'\">Отклонить запрос</button>";
+echo "<button onclick=\"window.location.href='accept.php?id={$id}'\">РџСЂРёРЅСЏС‚СЊ Р·Р°СЏРІРєСѓ</button> <button onclick=\"window.location.href='decline.php?id={$id}'\">РћС‚РєР»РѕРЅРёС‚СЊ Р·Р°СЏРІРєСѓ</button>";

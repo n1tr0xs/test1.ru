@@ -17,14 +17,14 @@ function auth_redirect(){
 }
 
 function request_info($row){
-  //echo "{$row['type_id']} {$row['category_id']} {$row['status']} {$row['description']} <br>";
-  $arr = array("Подключение", "Отключение", "Ремонт");
+  //echo "{$row['type_id']} {$row['category_id']} {$row['status']} {$row['description']} ";
+  $arr = array("", "", "");
   $type = $arr[$row['type_id']];
 
-  $arr = array("Водоснабжение", "Водоотведение", "Электроэнергия", "Газоснабжение", "Теплоснабжение", "Мусоровывоз");
+  $arr = array("", "", "", "", "", "");
   $category = $arr[$row['category_id']];
 
-  $arr = array("Не расммотрена", "Принята", "Назначена на", "Отклонена");
+  $arr = array("", "", "", "");
   $status = $arr[$row['status']];
 
   return array($type, $category, $status, $row['description'], $row['creation_date'], $row['id']);
@@ -35,7 +35,7 @@ function print_request_for_user($r){
   $date = date('d-m-Y',strtotime($r_info[4]));
 
   echo "<div class='request_for_user'>";
-  echo "$r_info[0] $r_info[1] $r_info[2] $r_info[3] Создана: $date";
+  echo "$r_info[0] $r_info[1] $r_info[2] $r_info[3] : $date";
   echo "</div>";
 }
 
@@ -45,12 +45,12 @@ function print_request_for_operator($r){
   $id = $r_info[5];
 
   echo "<div class='request_for_user'>";
-  echo "$r_info[0] $r_info[1] $r_info[2] $r_info[3] Создана: $date";
-  echo "<button onclick=\"window.location.href='request.php?id={$id}'\">Обработать заявку</button>";
+  echo "$r_info[0] $r_info[1] $r_info[2] $r_info[3] : $date";
+  echo "<button onclick=\"window.location.href='request.php?id={$id}'\"></button>";
   echo "</div>";
 }
 
 function print_request($r){
-  
+
 }
 ?>

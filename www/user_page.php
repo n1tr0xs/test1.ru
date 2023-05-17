@@ -6,14 +6,15 @@ auth_redirect();
 
 <html>
 <header>
+  <link rel='stylesheet' href='css/main.css'>
 </header>
 <body>
-  <a href="profile.php"> Мой профиль </a>
-  <br>
-  <a href="create_request.php"> Новая заявка </a>
-  <br>
-  <a href="my_requests.php"> Мои заявки </a>
-  <br>
-  <a href="login.php?act=logout"> Выйти из аккаунта </a>
+  <? include "header.php" ?>
+  <div id='content' class='content'>
+    <a href="create_request.php"> РЎРѕР·РґР°С‚СЊ Р·Р°СЏРІРєСѓ </a>
+    <a href="my_requests.php"> РњРѕРё Р·Р°СЏРІРєРё </a>
+    <a href="login.php?act=logout"> Р’С‹Р№С‚Рё РёР· Р°РєРєР°СѓРЅС‚Р° </a>
+  </div>
+  <? include "footer.php" ?>
 </body>
 </html>

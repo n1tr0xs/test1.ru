@@ -5,27 +5,75 @@ include 'funcs.php';
 auth_redirect();
 ?>
 
-<form action='request_creation.php' method="post">
-  <label>Выбери тип работ:</label>
-  <select name='type'>
-    <?php
-    foreach ($conn->query('SELECT * from servicetypes')->fetch_all(MYSQLI_ASSOC) as $row)
-      echo "<option value={$row['id']}> {$row['type']} </option>";
-    ?>
-  </select>
-  <br>
-  <label>Выберите категорию работ:</label>
-  <select name='category'>
-    <?php
-    foreach ($conn->query('SELECT * from servicecategories')->fetch_all(MYSQLI_ASSOC) as $row)
-      echo "<option value={$row['id']}> {$row['category']} </option>";
-    ?>
-  </select>
-  <br>
-  <label>Введите адрес:</label>
-  <input name="address" required/>
-  <br>
-  <textarea name="description" cols="50" rows="10" placeholder="Description" required></textarea>
-  <br>
-  <button type='submit'>Создать заявку</button>
-</form>
+<html>
+<head>
+  <script type='text/javascript'>
+  function validateForm(){
+
+    var el = document.getElementById('type');
+    if(el.selectedIndex == 0){
+      el.setCustomValidity('Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї СѓСЃР»СѓРіРё');
+      return;
+    } else{
+      el.setCustomValidity('');
+    }
+
+    var el = document.getElementById('category');
+    if(el.selectedIndex == 0){
+      el.setCustomValidity('Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ СѓСЃР»СѓРіРё');
+      return;
+    }else{
+      el.setCustomValidity('');
+    }
+
+    var el = document.getElementById('address');
+    if(el.value == ''){
+      el.setCustomValidity('Р’РІРµРґРёС‚Рµ Р°РґСЂРµСЃ');
+      return;
+    }else{
+      el.setCustomValidity('');
+    }
+
+    var el = document.getElementById('description');
+
+    if(el.value == ''){
+      el.setCustomValidity('РћРїРёС€РёС‚Рµ РІРѕР·РЅРёРєС€СѓСЋ РїСЂРѕР±Р»РµРјСѓ');
+      return;
+    }else{
+      el.setCustomValidity('');
+    }
+  }
+  </script>
+</head>
+<body>
+  <? include "header.php" ?>
+  <div id='content' class='content'>
+  <form action='request_creation.php' method="post">
+    <label> РўРёРї СѓСЃР»СѓРіРё: </label>
+    <select id='type' name='type'>
+      <option selected disabled>-----</option>
+      <?php
+      foreach ($conn->query('SELECT * from servicetypes')->fetch_all(MYSQLI_ASSOC) as $row)
+        echo "<option value={$row['id']}> {$row['type']} </option>";
+      ?>
+    </select>
+
+    <label> РљР°С‚РµРіРѕСЂРёСЏ СЂР°Р±РѕС‚: </label>
+    <select id='category' name='category'>
+      <option selected disabled>-----</option>
+      <?php
+      foreach ($conn->query('SELECT * from servicecategories')->fetch_all(MYSQLI_ASSOC) as $row)
+        echo "<option value={$row['id']}> {$row['category']} </option>";
+      ?>
+    </select>
+
+    <label> РђРґСЂРµСЃ: </label>
+    <input id='address' name="address">
+
+    <textarea id='description' name="description" cols="50" rows="10" placeholder="Description"></textarea>
+    <button onclick='validateForm();'>РћС‚РїСЂР°РІРёС‚СЊ Р·Р°СЏРІРєСѓ</button>
+  </form>
+</div>
+  <? include "footer.php" ?>
+</body>
+</html>

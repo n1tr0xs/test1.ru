@@ -1,0 +1,10 @@
+<html>
+<head>
+</head>
+<body>
+  <? include "header.php" ?>
+  <div id='content' class='content'>
+  </div>
+  <? include "footer.php" ?>
+</body>
+</html>
