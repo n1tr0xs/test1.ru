@@ -15,11 +15,12 @@ if (isset($_SESSION['user_type'])){
     case 'crewmember':
       header("location: /crewmember_page.php");
       break;
-    } 
+    }
 }
 
 if (isset($_GET) && isset($_GET['act']) && ($_GET['act'] == 'logout')){
   session_unset();
+  header("location: login.php");
 }
 
 if (isset($_POST) && isset($_POST['uname']) && isset($_POST['password'])) {
