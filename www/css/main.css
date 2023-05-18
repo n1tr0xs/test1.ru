@@ -1,7 +1,4 @@
-* {
-    display: block;
-}
-
+/* water.css */
 :root {
   --background-body: #fff;
   --background: #efefef;
@@ -532,25 +529,18 @@ textarea:disabled {
   opacity: 0.5;
 }
 
-
-
-#header {
-  height: 10%;
-  width: 100%;
-}
-
-
-#content {
-  height: 79%;
-  width: 100%;
-}
-
-#footer {
-  height: 10%;
-  width: 100%;
+/* footer */
+footer {
   position: absolute;
+  left: 0;
   bottom: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
 }
+
+/* Navbar */
 ul.navbar {
   list-style-type: none;
   margin: 0;
@@ -575,7 +565,34 @@ li.navbar a {
   text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
 li.navbar a:hover {
   background-color: #111;
+}
+
+/* New request form */
+.wrapper {
+  width: min-content;
+  list-style-type: none;
+  padding: 0;
+  border-radius: 3px;
+}
+.form-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: .5em;
+}
+.form-row > label {
+  padding: .5em 1em .5em 0;
+  flex: 1;
+}
+.form-row > input {
+  flex: 2;
+}
+.form-row > input,
+.form-row > button {
+  padding: .5em;
+}
+.form-row > button {
+  flex: 2;
+  border: 0;
 }

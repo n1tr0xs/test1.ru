@@ -17,17 +17,19 @@ function auth_redirect(){
 }
 
 function request_info($row){
-  //echo "{$row['type_id']} {$row['category_id']} {$row['status']} {$row['description']} ";
-  $arr = array("", "", "");
-  $type = $arr[$row['type_id']];
-
-  $arr = array("", "", "", "", "", "");
+  $arr = array("Водоснабжение", "Водотведение", "Электроснабжение", "Газоснабжение", "Теплоснабжение", "Вывоз мусора", "Лифт");
   $category = $arr[$row['category_id']];
 
-  $arr = array("", "", "", "");
+  $arr = array("Отправлено", "В работе", "Исполнено", "Отказано");
   $status = $arr[$row['status']];
 
-  return array($type, $category, $status, $row['description'], $row['creation_date'], $row['id']);
+  return array(
+    "category"=>$category,
+    "status"=>$status,
+    "description"=>$row['description'],
+    "creation_date"=>$row['creation_date'],
+    "id"=>$row['id'],
+  );
 }
 
 function print_request_for_user($r){
