@@ -7,43 +7,8 @@ auth_redirect();
 
 <html>
 <head>
-  <script type='text/javascript'>
-  function validateForm(){
-
-    var el = document.getElementById('type');
-    if(el.selectedIndex == 0){
-      el.setCustomValidity('Выберите тип услуги');
-      return;
-    } else{
-      el.setCustomValidity('');
-    }
-
-    var el = document.getElementById('category');
-    if(el.selectedIndex == 0){
-      el.setCustomValidity('Выберите категорию услуги');
-      return;
-    }else{
-      el.setCustomValidity('');
-    }
-
-    var el = document.getElementById('address');
-    if(el.value == ''){
-      el.setCustomValidity('Введите адрес');
-      return;
-    }else{
-      el.setCustomValidity('');
-    }
-
-    var el = document.getElementById('description');
-
-    if(el.value == ''){
-      el.setCustomValidity('Опишите возникшую проблему');
-      return;
-    }else{
-      el.setCustomValidity('');
-    }
-  }
-  </script>
+  <link rel='stylesheet' href='css/main.css'>
+  <script type='text/javascript' src='js/scripts.js'> </script>
 </head>
 <body>
   <? include "header.php" ?>

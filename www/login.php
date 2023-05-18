@@ -7,7 +7,7 @@ session_start();
 if (isset($_SESSION['user_type'])){
   switch ($_SESSION['user_type']) {
     case 'user':
-      header("location: /user_page.php");
+      header("location: /my_requests.php");
       break;
     case 'operator':
       header("location: /operator_page.php");
@@ -37,7 +37,7 @@ if (isset($_POST) && isset($_POST['uname']) && isset($_POST['password'])) {
     $_SESSION['user_type'] = $t;
     switch ($_SESSION['user_type']) {
       case 'user':
-        header("location: /user_page.php");
+        header("location: /my_requests.php");
         break;
       case 'operator':
         header("location: /operator_page.php");
@@ -57,14 +57,16 @@ if (isset($_POST) && isset($_POST['uname']) && isset($_POST['password'])) {
 
 <html>
 <head>
+  <link rel='stylesheet' href='css/main.css'>
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
 </head>
 <body>
   <form action="login.php" method="post">
-    <label>�����</label>
+    <label>Логин</label>
     <input type="text" name="uname" placeholder="User Name" required>
-    <label>������</label>
+    <label>Пароль</label>
     <input type="password" name="password" placeholder="Password" required>
-    <? if (isset($_GET['act']) && $_GET['act'] == 'error') echo "�������� ����� ��� ������"; ?>
+    <? if (isset($_GET['act']) && $_GET['act'] == 'error') echo "Неверный логин или пароль!"; ?>
     <button type="submit">Войти</button>
   </form>
 </body>
