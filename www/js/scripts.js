@@ -21,5 +21,21 @@ function validateForm(){
     el.setCustomValidity('Опишите возникшую проблему');
     return;
   }else el.setCustomValidity('');
- 
+  return;
+}
+
+function selectAll(name){
+  childs = document.querySelectorAll('form[name="status"] input[type="checkbox"]');
+  childs.forEach((cb) => {
+    cb.checked = true;
+  });
+  return;
+}
+
+function unselectAll(name){
+  var childs = document.querySelectorAll('form[name="status"] input[type="checkbox"]');
+  childs.forEach((cb) => {
+    cb.checked = false;
+  });
+  return;
 }

@@ -7,7 +7,7 @@ session_start();
 if (isset($_SESSION['user_type'])){
   switch ($_SESSION['user_type']) {
     case 'user':
-      header("location: /my_requests.php");
+      header("location: /my_requests.php?s0=1&s1=1&s2=1&s3=1");
       break;
     case 'operator':
       header("location: /operator_page.php");
@@ -37,7 +37,7 @@ if (isset($_POST) && isset($_POST['uname']) && isset($_POST['password'])) {
     $_SESSION['user_type'] = $t;
     switch ($_SESSION['user_type']) {
       case 'user':
-        header("location: /my_requests.php");
+        header("location: /my_requests.php?s0=1&s1=1&s2=1&s3=1");
         break;
       case 'operator':
         header("location: /operator_page.php");
@@ -58,16 +58,28 @@ if (isset($_POST) && isset($_POST['uname']) && isset($_POST['password'])) {
 <html>
 <head>
   <link rel='stylesheet' href='css/main.css'>
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
 </head>
 <body>
+  <? include "header.php" ?>
   <form action="login.php" method="post">
-    <label>Логин</label>
-    <input type="text" name="uname" placeholder="User Name" required>
-    <label>Пароль</label>
-    <input type="password" name="password" placeholder="Password" required>
-    <? if (isset($_GET['act']) && $_GET['act'] == 'error') echo "Неверный логин или пароль!"; ?>
-    <button type="submit">Войти</button>
+    <ul class='wrapper'>
+      <li class='form-row'>
+        <? if (isset($_GET['act']) && $_GET['act'] == 'error') echo "<label> Неверный логин или пароль! </label>"; ?>
+        <? if (isset($_GET['act']) && $_GET['act'] == 'reg') echo "<label> Вы успешно зарегестрированы! </label>"; ?>
+      </li>
+      <li class='form-row'>
+        <label>Логин</label>
+        <input type="text" name="uname" placeholder="Логин" required>
+      </li>
+      <li class='form-row'>
+        <label>Пароль</label>
+        <input type="password" name="password" placeholder="Пароль" required>
+      </li>
+      <li class='form-row'>
+        <button type="submit">Войти</button>
+        <a href='registration.php'> Зарегестрироваться </a>
+      </li>
+    </ul>
   </form>
 </body>
 </html>

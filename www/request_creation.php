@@ -24,4 +24,4 @@ $conn->query("
   ('$id', '$type', '$category', '$user_id', '$date', NULL, NULL, NULL, $description, '0')
 ");
 
-header('location: my_requests.php');
+header('location: my_requests.php?s0=1&s1=1&s2=1&s3=1');
