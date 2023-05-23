@@ -612,3 +612,10 @@ li.navbar a:hover {
   flex: 2;
   border: 0;
 }
+
+button.red {
+  background-color: red;
+}
+button.green {
+  background-color: green;
+}

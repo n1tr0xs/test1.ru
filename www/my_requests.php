@@ -18,7 +18,7 @@ auth_redirect();
       <form method='get' action='my_requests.php' name='status'>
         <table>
           <tr>
-            <td> <legend> Показать заявки со статусом: </legend> </td>
+            <td> <legend> Показывать заявки со статусом: </legend> </td>
           </tr>
           <tr>
             <td> <input class='status checkbox' name='s0' type='checkbox' value='1' name='s0' <? if(isset($_GET['s0'])) echo "checked"; ?>>Отправлена</input> </td>
@@ -30,7 +30,7 @@ auth_redirect();
             <td> <button type='button' onclick="selectAll('status');"> Выделить всё </button> </td>
             <td> <button type='button' onclick="unselectAll('status');"> Снять выделение </button> </td>
             <td></td>
-            <td> <button type='submit'> Отфильтровать </button> </td>
+            <td> <button type='submit'> Применить фильтр </button> </td>
           </tr>
         </table>
       </form>
@@ -41,22 +41,20 @@ auth_redirect();
         <th> Дата отправки </th>
         <th> Номер заявки </th>
         <th> Статус заявки </th>
-        <th> Адрес дома </th>
+        <th> Адрес </th>
       </tr>
     <?
       $uid = $_SESSION['uid'];
       $statuses = array();
-      for($i=0; $i<4; ++$i){
-        if($_GET["s{$i}"] == "1"){
+      for($i=0; $i<4; ++$i)
+        if($_GET["s{$i}"] == "1")
           array_push($statuses, "{$i}");
-        }
-      }
       if(isset($statuses[0])){
         $statuses = '('. join(',', $statuses). ')';
       } else {
         $statuses = "(-1)";
       }
-      $result = $conn->query("SELECT * from requests where user_id=$uid and status IN {$statuses} order by creation_date desc");
+      $result = $conn->query("SELECT * from requests where user_id={$uid} and status IN {$statuses} order by creation_date desc");
       $rows = $result->fetch_all(MYSQLI_ASSOC);
 
       foreach ($rows as $row) {

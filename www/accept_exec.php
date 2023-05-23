@@ -6,8 +6,9 @@ session_start();
 auth_redirect();
 
 $id = $_POST['id'];
-$crew = $_POST['crew'];
+$crew_id = $_POST['crew_id'];
+$uid = $_SESSION['uid'];
 
-$conn->query("update requests set `status`='1', `crew_id`='{$crew}' where `id`='{$id}'");
+$conn->query("update requests set operator_id='{$uid}', status='1', crew_id='{$crew}' where id='{$id}'");
 
 header("Location: operator_page.php");
