@@ -13,7 +13,8 @@ if(isset($_POST['uname']) && isset($_POST['password'])){
     $r = $conn->query('SELECT max(id) from users');
     $r = $r->fetch_array();
     $id = $r['max(id)'] + 1;
-    $conn->query("insert into users VALUES ({$id}, '{$login}', '{$password}', NULL, NULL, NULL, NULL, NULL)");
+    // echo "insert into users VALUES ({$id}, '{$login}', '{$password}', NULL, NULL, NULL, NULL, NULL)";
+    $conn->query("insert into users VALUES ('', '{$login}', '{$password}', NULL, NULL, NULL, NULL, NULL, NULL)");
     header("location: login.php?act=reg");
   }
 }

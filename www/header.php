@@ -6,6 +6,7 @@
       switch ($_SESSION['user_type']) {
         case 'user':
           echo "
+            <li class='navbar'><a href='profile.php'> Мои профиль </a></li>
             <li class='navbar'><a href='my_requests.php?s0=1&s1=1&s2=1&s3=1'> Мои заявки </a></li>
             <li class='navbar'><a href='create_request.php'> Новая заявка </a></li>
           ";

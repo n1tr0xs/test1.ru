@@ -22,7 +22,7 @@ $uid = $_SESSION['uid'];
         <th> </th>
       </tr>
       <?
-        $result = $conn->query("SELECT * from requests where (operator_id is NULL) and (status=0) order by creation_date asc");
+        $result = $conn->query("SELECT * from requests where (operator_id is NULL) and (status_id=0) order by creation_date asc");
         $rows = $result->fetch_all(MYSQLI_ASSOC);
         foreach ($rows as $row) {
           $info = request_info($row);

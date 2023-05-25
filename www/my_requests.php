@@ -54,22 +54,24 @@ auth_redirect();
       } else {
         $statuses = "(-1)";
       }
-      $result = $conn->query("SELECT * from requests where user_id={$uid} and status IN {$statuses} order by creation_date desc");
-      $rows = $result->fetch_all(MYSQLI_ASSOC);
+      $result = $conn->query("SELECT * from requests where user_id={$uid} and status_id IN {$statuses} order by creation_date desc");
+      if(mysqli_num_rows($result)){
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-      foreach ($rows as $row) {
-        $info = request_info($row);
-        $created = date('d-m-Y', strtotime($info['creation_date']));
-        echo
-        "
-        <tr>
-          <td>{$info['category']}</td>
-          <td>{$created}</td>
-          <td>{$info['id']}</td>
-          <td>{$info['status']}</td>
-          <td>{$info['address']}</td>
-        </tr>
-        ";
+        foreach ($rows as $row) {
+          $info = request_info($row);
+          $created = date('d-m-Y', strtotime($info['creation_date']));
+          echo
+          "
+          <tr>
+            <td>{$info['category']}</td>
+            <td>{$created}</td>
+            <td>{$info['id']}</td>
+            <td>{$info['status']}</td>
+            <td>{$info['address']}</td>
+          </tr>
+          ";
+        }
       }
     ?>
     <tr> </tr>

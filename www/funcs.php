@@ -21,7 +21,7 @@ function request_info($row){
   $category = $arr[$row['category_id']];
 
   $arr = array("Отправлена", "Рассмотрена", "Выполнена", "Отклонена");
-  $status = $arr[$row['status']];
+  $status = $arr[$row['status_id']];
 
   return array(
     "category"=>$category,

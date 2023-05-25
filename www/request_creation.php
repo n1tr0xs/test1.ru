@@ -19,7 +19,7 @@ $date = date("Y-m-d");
 
 $conn->query("
   INSERT INTO `requests`
-  (`id`, `type_id`, `category_id`, `user_id`, `creation_date`, `closing_date`, `operator_id`, `crew_id`, `description`, `status`)
+  (`id`, `type_id`, `category_id`, `user_id`, `creation_date`, `closing_date`, `operator_id`, `crew_id`, `description`, `status_id`)
   VALUES
   ('$id', '$type', '$category', '$user_id', '$date', NULL, NULL, NULL, $description, '0')
 ");
