@@ -55,6 +55,9 @@ $id = $_GET['id'];
           </select>
         </li>
         <li class='form-row'>
+          <textarea name="note" cols="50" rows="10" placeholder="Описание"></textarea>
+        </li>
+        <li class='form-row'>
           <button type='submit'>Принять заявку</button>
         </li>
       </ul>

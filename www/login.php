@@ -12,8 +12,8 @@ if (isset($_SESSION['user_type'])){
     case 'operator':
       header("location: /operator_page.php");
       break;
-    case 'crewmember':
-      header("location: /crewmember_page.php");
+    case 'foreman':
+      header("location: /foreman_page.php");
       break;
     }
 }
@@ -27,31 +27,30 @@ if (isset($_POST) && isset($_POST['uname']) && isset($_POST['password'])) {
 
   $uname = $_POST['uname'];
   $pass = $_POST['password'];
-
+  $logged = false;
   foreach ($ALL_USER_TYPES as $t=>$db) {
     $result = $conn->query("SELECT id, login, password from {$db} where login='{$uname}' and password='{$pass}'");
     if(mysqli_num_rows($result)){
-    $r = $result->fetch_assoc();
-    $_SESSION['user'] = $uname;
-    $_SESSION['uid'] = $r['id'];
-    $_SESSION['user_type'] = $t;
-    switch ($_SESSION['user_type']) {
-      case 'user':
-        header("location: /my_requests.php?s0=1&s1=1&s2=1&s3=1");
-        break;
-      case 'operator':
-        header("location: /operator_page.php");
-        break;
-      case 'crewmember':
-        header("location: /crewmember_page.php");
-        break;
-      }
-    break;
-    }
-    else{
-      header("Location: /login.php?act=error");
+      $logged = true;
+      $r = $result->fetch_assoc();
+      $_SESSION['user'] = $uname;
+      $_SESSION['uid'] = $r['id'];
+      $_SESSION['user_type'] = $t;
+      switch ($_SESSION['user_type']) {
+        case 'user':
+          header("location: /my_requests.php?s0=1&s1=1&s2=1&s3=1");
+          break;
+        case 'operator':
+          header("location: /operator_page.php");
+          break;
+        case 'foreman':
+          header("location: /foreman_page.php");
+          break;
+        }
+      break;
     }
   }
+  if(!$logged) header("Location: /login.php?act=error");
 }
 ?>
 

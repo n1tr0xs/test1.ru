@@ -3,7 +3,8 @@ include 'db_conn.php';
 include 'funcs.php';
 
 session_start();
-auth_redirect();
+if($_SESSION['user_type'] != 'foreman')
+  header('login.php');
 
 $id = $_GET['id'];
 $uid = $_SESSION['uid'];
@@ -39,17 +40,19 @@ $uid = $_SESSION['uid'];
         <td> <? echo date('d-m-Y', strtotime($info['creation_date'])); ?> </td>
       </tr>
     </table>
-    <?
-      switch ($_SESSION['user_type']) {
-        case 'operator':
-          echo "<button class='green' onclick=\"window.location.href='accept.php?id={$id}'\">Принять заявку</button>";
-          echo "<button class='red' onclick=\"window.location.href='decline.php?id={$id}'\">Отклонить заявку</button>";
-          break;
-        case 'foreman':
-          echo "<button class='green' onclick=\"window.location.href='complete.php?id={$id}'\">Заявка выполнена</button>";
-          break;
-      }
-    ?>
+    <form action='complete_exec.php' method='post'>
+      <? echo "<input type='hidden' name='id' value='{$id}'> </input>"; ?>
+      <ul class='wrapper'>
+        <li class='form-row'>
+          <label> Описание </label>
+          <textarea name="note" cols="50" rows="5" placeholder="Описание"></textarea>
+        </li>
+        <li class='form-row'>
+          <button type='submit' class='green'> Подтвердить выполнение заявки </button>
+        </li>
+      </ul>
+    </form>
+
   </div>
   <? include "footer.php" ?>
 </body>

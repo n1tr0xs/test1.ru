@@ -11,6 +11,7 @@
 <body>
   <? include "header.php" ?>
   <div class='content'>
+    Контакты:
   </div>
   <? include "footer.php" ?>
 </body>

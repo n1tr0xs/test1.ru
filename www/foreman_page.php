@@ -1,15 +1,16 @@
 <?
-include 'db_conn.php';
-include 'funcs.php';
+  include 'db_conn.php';
+  include 'funcs.php';
 
-session_start();
-auth_redirect();
-$uid = $_SESSION['uid'];
+  session_start();
+  auth_redirect();
+
+  $uid = $_SESSION['uid'];
 ?>
 
 <html>
 <head>
-  <link rel='stylesheet' href='css/main.css'>
+    <link rel='stylesheet' href='css/main.css'>
 </head>
 <body>
   <? include "header.php" ?>
@@ -22,7 +23,10 @@ $uid = $_SESSION['uid'];
         <th> </th>
       </tr>
       <?
-        $result = $conn->query("SELECT * from requests where (operator_id is NULL) and (status=0) order by creation_date asc");
+        $res = $conn->query("select * from crews where foreman_id='{$uid}'");
+        $res = $res->fetch_assoc();
+        $crew_id = $res['id'];
+        $result = $conn->query("SELECT * from requests where (status_id=1) and (crew_id={$crew_id}) order by creation_date asc");
         $rows = $result->fetch_all(MYSQLI_ASSOC);
         foreach ($rows as $row) {
           $info = request_info($row);

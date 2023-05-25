@@ -76,7 +76,7 @@ auth_redirect();
           </li>
           <li class='form-row'>
             <label> Опишите заявку: </label>
-            <textarea id='description' name="description" cols="50" rows="10" placeholder="Description"></textarea>
+            <textarea name="description" cols="50" rows="10" placeholder="Описание"></textarea>
           </li>
           <li class='form-row'>
             <button onclick='validateForm();'>Отправить заявку</button>

@@ -1,6 +1,3 @@
-<?
-session_start();
-?>
 <header>
   <ul class='navbar'>
     <!-- <li class='navbar'><a href=''>  </a></li> -->
@@ -16,8 +13,8 @@ session_start();
         case 'operator':
           echo "<li class='navbar'><a href='operator_page.php'> Главная страница </a></li>";
           break;
-        case 'crewmember':
-          echo "<li class='navbar'><a href='crewmember_page.php'> Главная страница </a></li>";
+        case 'foreman':
+          echo "<li class='navbar'><a href='foreman_page.php'> Главная страница </a></li>";
           break;
       };
       // right navbars
