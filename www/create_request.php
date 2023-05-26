@@ -8,6 +8,19 @@ auth_redirect();
   <head>
     <link rel='stylesheet' href='css/main.css'>
     <script type='text/javascript' src='js/scripts.js'></script>
+    <script type="text/javascript">
+    function loadStreets(){
+      document.getElementById("street").innerHTML = "";
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200)
+           document.getElementById("street").innerHTML = this.responseText;
+      };
+      var selected = document.getElementById('city').value;
+      xhttp.open('get', 'get_streets.php?city_id='+selected, true);
+      xhttp.send();
+    }
+    </script>
   </head>
   <body>
     <? include "header.php" ?>
@@ -19,7 +32,9 @@ auth_redirect();
             <select id='type' name='type'>
               <option selected disabled>-----</option>
               <?
-              foreach ($conn->query('SELECT * from servicetypes')->fetch_all(MYSQLI_ASSOC) as $row){
+              $res = $conn->query("SELECT * from types");
+              $res = $res->fetch_all(MYSQLI_ASSOC);
+              foreach ($res as $row){
                 switch ($row['type']) {
                   case 'connection':
                     $t = 'Подключение';
@@ -41,7 +56,9 @@ auth_redirect();
             <select id='category' name='category'>
               <option selected disabled>-----</option>
               <?
-              foreach ($conn->query('SELECT * from servicecategories')->fetch_all(MYSQLI_ASSOC) as $row) {
+              $res = $conn->query("SELECT * from categories");
+              $res = $res->fetch_all(MYSQLI_ASSOC);
+              foreach ($res as $row) {
                 switch ($row['category']) {
                   case 'water supply':
                     $c = 'Водоснабжение';
@@ -71,8 +88,22 @@ auth_redirect();
             </select>
           </li>
           <li class='form-row'>
-            <label> Адрес: </label>
-            <input id='address' name="address">
+            <label> Выберите нас. пункт: </label>
+            <select id='city' name='city' onchange="loadStreets();">
+              <option selected disabled>-----</option>
+              <?
+                $res = $conn->query("select * from cities");
+                $res = $res->fetch_all(MYSQLI_ASSOC);
+                foreach ($res as $row) {
+                  echo "<option value={$row['id']}> {$row['type']} {$row['name']} </option> ";
+              }
+              ?>
+            </select>
+          </li>
+          <li class='form-row'>
+            <label> Выберите улицу </label>
+            <select name='street' id='street'>
+            </select>
           </li>
           <li class='form-row'>
             <label> Опишите заявку: </label>
