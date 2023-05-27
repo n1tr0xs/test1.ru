@@ -16,7 +16,19 @@ $id = $_GET['id'];
   <div class='content'>
     <table>
       <?
-        $result = $conn->query("select * from requests where id={$id}");
+        $result = $conn->query("
+          SELECT r.id, r.user_id, r.description, r.category_id, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, cg.name category
+          from requests r
+            left join statuses s on(r.status_id=s.id)
+            left join categories cg on (r.category_id=cg.id)
+            left join cities ct on (r.city_id=ct.id)
+            left join streets st on (r.street_id=st.id)
+          where
+            (r.id={$id})
+          order by
+            creation_date desc
+          ");
+        // $result = $conn->query("select * from requests r left join statuses s on(r.status_id=s.id) where id={$id}");
         $result = $result->fetch_assoc();
         $info = request_info($result);
       ?>
@@ -45,9 +57,6 @@ $id = $_GET['id'];
           <label> Выберите команду </label>
           <select name='crew_id'>
             <?
-              $result = $conn->query("select * from requests where id={$id}");
-              $result = $result->fetch_assoc();
-              $info = request_info($result);
               $category_id = $result['category_id'];
               foreach ($conn->query("SELECT * from crews where category_id={$category}")->fetch_all(MYSQLI_ASSOC) as $row)
                 echo "<option value={$row['id']}> {$row['number']} </option>";

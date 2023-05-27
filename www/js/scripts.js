@@ -4,24 +4,31 @@ function validateForm(){
     el.setCustomValidity('Выберите тип услуги');
     return;
   } else el.setCustomValidity('');
+
   var el = document.getElementById('category');
   if(el.selectedIndex == 0){
     el.setCustomValidity('Выберите категорию услуги');
     return;
   }else el.setCustomValidity('');
-  var el = document.getElementById('address');
-  if(el.value == ''){
-    el.setCustomValidity('Введите адрес');
+
+  var el = document.getElementById('city');
+  if(el.selectedIndex == 0){
+    el.setCustomValidity('Выберите населенный пункт');
+    return;
+  }else el.setCustomValidity('');
+
+  var el = document.getElementById('street');
+  if(el.selectedIndex == 0){
+    el.setCustomValidity('Выберите улицу');
     return;
   }else el.setCustomValidity('');
 
   var el = document.getElementById('description');
-
   if(el.value == ''){
     el.setCustomValidity('Опишите возникшую проблему');
     return;
   }else el.setCustomValidity('');
-  return;
+
 }
 
 function selectAll(name){

@@ -39,7 +39,6 @@ auth_redirect();
       <tr>
         <th> Тема заявки </th>
         <th> Дата отправки </th>
-        <th> Номер заявки </th>
         <th> Статус заявки </th>
         <th> Адрес </th>
       </tr>
@@ -54,10 +53,22 @@ auth_redirect();
       } else {
         $statuses = "(-1)";
       }
-      $result = $conn->query("SELECT * from requests where user_id={$uid} and status_id IN {$statuses} order by creation_date desc");
+      $result = $conn->query("
+        SELECT r.id, r.user_id, r.description, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, cg.name category
+        from requests r
+          left join statuses s on(r.status_id=s.id)
+          left join categories cg on (r.category_id=cg.id)
+          left join cities ct on (r.city_id=ct.id)
+          left join streets st on (r.street_id=st.id)
+        where
+          (r.user_id={$uid}) and
+          (r.status_id IN {$statuses})
+        order by
+          creation_date desc
+      ");
+      echo mysqli_num_rows($result);
       if(mysqli_num_rows($result)){
         $rows = $result->fetch_all(MYSQLI_ASSOC);
-
         foreach ($rows as $row) {
           $info = request_info($row);
           $created = date('d-m-Y', strtotime($info['creation_date']));
@@ -66,7 +77,6 @@ auth_redirect();
           <tr>
             <td>{$info['category']}</td>
             <td>{$created}</td>
-            <td>{$info['id']}</td>
             <td>{$info['status']}</td>
             <td>{$info['address']}</td>
           </tr>

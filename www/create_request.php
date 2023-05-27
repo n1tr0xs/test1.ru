@@ -32,22 +32,10 @@ auth_redirect();
             <select id='type' name='type'>
               <option selected disabled>-----</option>
               <?
-              $res = $conn->query("SELECT * from types");
-              $res = $res->fetch_all(MYSQLI_ASSOC);
-              foreach ($res as $row){
-                switch ($row['type']) {
-                  case 'connection':
-                    $t = 'Подключение';
-                    break;
-                  case 'disconnection':
-                    $t = 'Отключение';
-                    break;
-                  case 'repair':
-                    $t = 'Ремонт';
-                    break;
-                }
-                echo "<option value={$row['id']}> {$t} </option>";
-              }
+                $res = $conn->query("SELECT * from types");
+                $res = $res->fetch_all(MYSQLI_ASSOC);
+                foreach ($res as $row)
+                  echo "<option value={$row['id']}> {$row['name']} </option>";
               ?>
             </select>
           </li>
@@ -56,34 +44,11 @@ auth_redirect();
             <select id='category' name='category'>
               <option selected disabled>-----</option>
               <?
-              $res = $conn->query("SELECT * from categories");
-              $res = $res->fetch_all(MYSQLI_ASSOC);
-              foreach ($res as $row) {
-                switch ($row['category']) {
-                  case 'water supply':
-                    $c = 'Водоснабжение';
-                    break;
-                  case 'water disposal':
-                      $c = 'Водоотведение';
-                      break;
-                  case 'power supply':
-                    $c = 'Электроснабжение';
-                    break;
-                  case 'gas supply':
-                    $c = 'Газоснабжение';
-                    break;
-                  case 'heat supply':
-                    $c = 'Теплоснабжение';
-                    break;
-                  case 'solid waste':
-                    $c = 'Вывоз мусора';
-                    break;
-                  case 'elevator':
-                    $c = 'Лифт';
-                    break;
-                }
-                  echo "<option value={$row['id']}> {$c} </option>";
-                }
+                $res = $conn->query("SELECT * from categories");
+                $res = $res->fetch_all(MYSQLI_ASSOC);
+                foreach ($res as $row) {
+                    echo "<option value={$row['id']}> {$row['name']} </option>";
+                  }
               ?>
             </select>
           </li>
@@ -107,7 +72,7 @@ auth_redirect();
           </li>
           <li class='form-row'>
             <label> Опишите заявку: </label>
-            <textarea name="description" cols="50" rows="10" placeholder="Описание"></textarea>
+            <textarea id='description' name="description" cols="50" rows="10" placeholder="Описание"></textarea>
           </li>
           <li class='form-row'>
             <button onclick='validateForm();'>Отправить заявку</button>

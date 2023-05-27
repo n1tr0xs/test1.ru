@@ -17,18 +17,25 @@ function auth_redirect(){
 }
 
 function request_info($row){
-  $arr = array("Водоснабжение", "Водотведение", "Электроснабжение", "Газоснабжение", "Теплоснабжение", "Вывоз мусора", "Лифт");
-  $category = $arr[$row['category_id']];
+  // foreach ($row as $key => $value) {
+  //   echo "{$key} -> {$value} <br>";
+  // }
+  $category = $row['category'];
+  $status = $row['status'];
+  $address = "{$row['city_type']} {$row['city']}, {$row['street_type']} {$row['street']}";
 
-  $arr = array("Отправлена", "Рассмотрена", "Выполнена", "Отклонена");
-  $status = $arr[$row['status_id']];
+  if($row['house'])
+    $address .= ", д.{$row['house']}";
+  if($row['flat'])
+    $address .= ", кв.{$row['flat']}";
 
   return array(
+    "id"=>$row['id'],
     "category"=>$category,
     "status"=>$status,
+    "address"=>$address,
     "description"=>$row['description'],
     "creation_date"=>$row['creation_date'],
-    "id"=>$row['id'],
   );
 }
 
