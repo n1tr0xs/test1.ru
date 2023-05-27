@@ -50,6 +50,33 @@ $uid = $_SESSION['uid'];
         <td> Дата создания </td>
         <td> <? echo date('d-m-Y', strtotime($info['creation_date'])); ?> </td>
       </tr>
+      <tr>
+        <td> Ваше описание </td>
+        <td> <? echo $info['description']; ?> </td>
+      </tr>
+      <?
+        if ($info['operator_note'])
+          echo "
+            <tr>
+              <td> Заметка оператора </td>
+              <td> {$info['operator_note']} </td>
+            </tr>
+          ";
+        if($info['foreman_note'])
+        echo "
+          <tr>
+            <td> Заметка рабочей бригады </td>
+            <td> {$info['foreman_note']} </td>
+          </tr>
+        ";
+        if($info['closing_date'])
+        echo "
+          <tr>
+            <td> Дата закрытия заявки </td>
+            <td> {$info['closing_date']} </td>
+          </tr>
+        ";
+      ?>
     </table>
     <?
       switch ($_SESSION['user_type']) {

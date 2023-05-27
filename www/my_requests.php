@@ -41,6 +41,7 @@ auth_redirect();
         <th> Дата отправки </th>
         <th> Статус заявки </th>
         <th> Адрес </th>
+        <th> </th>
       </tr>
     <?
       $uid = $_SESSION['uid'];
@@ -66,23 +67,22 @@ auth_redirect();
         order by
           creation_date desc
       ");
-      echo mysqli_num_rows($result);
-      if(mysqli_num_rows($result)){
-        $rows = $result->fetch_all(MYSQLI_ASSOC);
-        foreach ($rows as $row) {
-          $info = request_info($row);
-          $created = date('d-m-Y', strtotime($info['creation_date']));
-          echo
-          "
-          <tr>
-            <td>{$info['category']}</td>
-            <td>{$created}</td>
-            <td>{$info['status']}</td>
-            <td>{$info['address']}</td>
-          </tr>
-          ";
-        }
+      $rows = $result->fetch_all(MYSQLI_ASSOC);
+      foreach ($rows as $row) {
+        $info = request_info($row);
+        $created = date('d-m-Y', strtotime($info['creation_date']));
+        echo
+        "
+        <tr>
+          <td>{$info['category']}</td>
+          <td>{$created}</td>
+          <td>{$info['status']}</td>
+          <td>{$info['address']}</td>
+          <td><a href='request.php?id=${info['id']}'> Подробнее </a></td>
+        </tr>
+        ";
       }
+
     ?>
     <tr> </tr>
   </table>
