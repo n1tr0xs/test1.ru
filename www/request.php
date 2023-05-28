@@ -7,6 +7,17 @@ auth_redirect();
 
 $id = $_GET['id'];
 $uid = $_SESSION['uid'];
+if($_SESSION['user_type'] == 'operator'){
+  $resp = $conn->query("select operator_id from requests where id={$id}");
+  $resp = $resp->fetch_assoc();
+  if($resp['operator_id']!=NULL){
+    if($resp['operator_id'] != $uid){
+      header("location: operator_page.php?msg=considering");
+    }
+  } else {
+    $conn->query("update requests set operator_id={$uid} where id={$id}");
+  }
+}
 ?>
 
 <html>

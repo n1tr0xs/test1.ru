@@ -14,6 +14,10 @@ $uid = $_SESSION['uid'];
 <body>
   <? include "header.php" ?>
   <div class='content'>
+    <?
+      if($_GET['msg'] == 'considering')
+        echo "<label style='color: red; text-align: center; width: 100%'> Заявка уже рассматривается </label>";
+    ?>
     <table>
       <tr>
         <th> Тема заявки </th>
