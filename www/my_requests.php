@@ -55,7 +55,7 @@ auth_redirect();
         $statuses = "(-1)";
       }
       $result = $conn->query("
-        SELECT r.id, r.user_id, r.description, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, cg.name category
+        SELECT r.id, r.user_id, r.description, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, r.category_id category_id, cg.name category
         from requests r
           left join statuses s on(r.status_id=s.id)
           left join categories cg on (r.category_id=cg.id)

@@ -36,30 +36,7 @@ function request_info($row){
     "address"=>$address,
     "description"=>$row['description'],
     "creation_date"=>$row['creation_date'],
+    "category_id"=>$row['category_id'],
   );
-}
-
-function print_request_for_user($r){
-  $r_info = request_info($r);
-  $date = date('d-m-Y',strtotime($r_info[4]));
-
-  echo "<div class='request_for_user'>";
-  echo "$r_info[0] $r_info[1] $r_info[2] $r_info[3] : $date";
-  echo "</div>";
-}
-
-function print_request_for_operator($r){
-  $r_info = request_info($r);
-  $date = date('d-m-Y',strtotime($r_info[4]));
-  $id = $r_info[5];
-
-  echo "<div class='request_for_user'>";
-  echo "$r_info[0] $r_info[1] $r_info[2] $r_info[3] : $date";
-  echo "<button onclick=\"window.location.href='request.php?id={$id}'\"></button>";
-  echo "</div>";
-}
-
-function print_request($r){
-
 }
 ?>

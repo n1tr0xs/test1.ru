@@ -17,7 +17,7 @@ $id = $_GET['id'];
     <table>
       <?
         $result = $conn->query("
-          SELECT r.id, r.user_id, r.description, r.category_id, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, cg.name category
+          SELECT r.id, r.user_id, r.description, r.category_id, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, r.category_id category_id, cg.name category
           from requests r
             left join statuses s on(r.status_id=s.id)
             left join categories cg on (r.category_id=cg.id)
@@ -57,8 +57,14 @@ $id = $_GET['id'];
           <label> Выберите команду </label>
           <select name='crew_id'>
             <?
-              $category_id = $result['category_id'];
-              foreach ($conn->query("SELECT * from crews where category_id={$category}")->fetch_all(MYSQLI_ASSOC) as $row)
+              $category_id = $info['category_id'];
+              $r = $conn->query("
+                SELECT *
+                from crews
+                where category_id={$category_id}
+              ");
+              $r = $r->fetch_all(MYSQLI_ASSOC);
+              foreach ($r as $row)
                 echo "<option value={$row['id']}> {$row['number']} </option>";
             ?>
           </select>
@@ -71,6 +77,53 @@ $id = $_GET['id'];
         </li>
       </ul>
     </form>
+
+    <table>
+      <caption> Адреса принятых заявок у каждой бригады </caption>
+      <tr>
+        <?
+          $crews = $conn->query("
+            select *
+            from crews
+            where category_id={$info['category_id']}
+          ");
+          $crews = $crews->fetch_all(MYSQLI_ASSOC);
+          foreach ($crews as $row)
+            echo "<th> {$row['number']} </th>";
+        ?>
+      </tr>
+      <?
+        $crew_requests = array();
+        $max_len = -1;
+        foreach ($crews as $row) {
+          $crew_id = $row['id'];
+          $crew_requests[$crew_id] = array();
+          $rr = $conn->query("
+            select c.type city_type, c.name city, s.type street_type, s.name street
+            from requests r
+              left join cities c on (r.city_id=c.id)
+              left join streets s on (r.street_id=s.id)
+            where
+              status_id=1
+              and crew_id={$crew_id}
+          ");
+          $rr = $rr->fetch_all(MYSQLI_ASSOC);
+          foreach ($rr as $row) {
+            $rinfo = request_info($row);
+            array_push($crew_requests[$crew_id], $rinfo['address']);
+          }
+          $max_len = max(sizeof($crew_requests[$crew_id], 0), $max_len);
+        }
+
+        for($i=0; $i<$max_len; ++$i){
+          echo "<tr>";
+          foreach ($crew_requests as $key => $value) {
+            echo "<td> {$value[$i]} </td>";
+          }
+          echo "</tr>";
+        }
+      ?>
+    </table>
 </div>
 <? include "footer.php" ?>
 </body>
