@@ -58,13 +58,14 @@ $id = $_GET['id'];
           <select name='crew_id'>
             <?
               $category_id = $info['category_id'];
-              $r = $conn->query("
-                SELECT *
-                from crews
-                where category_id={$category_id}
+              $crews = $conn->query("
+                SELECT c.id id, c.number number
+                from crews c
+                  join crew_category cc on (c.id=cc.crew_id)
+                where cc.category_id={$category_id}
               ");
-              $r = $r->fetch_all(MYSQLI_ASSOC);
-              foreach ($r as $row)
+              $crews = $crews->fetch_all(MYSQLI_ASSOC);
+              foreach ($crews as $row)
                 echo "<option value={$row['id']}> {$row['number']} </option>";
             ?>
           </select>
@@ -82,12 +83,6 @@ $id = $_GET['id'];
       <caption> Адреса принятых заявок у каждой бригады </caption>
       <tr>
         <?
-          $crews = $conn->query("
-            select *
-            from crews
-            where category_id={$info['category_id']}
-          ");
-          $crews = $crews->fetch_all(MYSQLI_ASSOC);
           foreach ($crews as $row)
             echo "<th> {$row['number']} </th>";
         ?>

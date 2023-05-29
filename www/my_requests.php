@@ -21,10 +21,19 @@ auth_redirect();
             <td> <legend> Показывать заявки со статусом: </legend> </td>
           </tr>
           <tr>
-            <td> <input class='status checkbox' name='s0' type='checkbox' value='1' name='s0' <? if(isset($_GET['s0'])) echo "checked"; ?>>Отправлена</input> </td>
-            <td> <input class='status checkbox' name='s1' type='checkbox' value='1' name='s1' <? if(isset($_GET['s1'])) echo "checked"; ?>>Рассмотрена</input> </td>
-            <td> <input class='status checkbox' name='s2' type='checkbox' value='1' name='s2' <? if(isset($_GET['s2'])) echo "checked"; ?>>Выполнена</input> </td>
-            <td> <input class='status checkbox' name='s3' type='checkbox' value='1' name='s3' <? if(isset($_GET['s3'])) echo "checked"; ?>>Отклонена</input> </td>
+
+            <?
+              $resp = $conn->query("select id, name from statuses");
+              $resp = $resp->fetch_all(MYSQLI_ASSOC);
+              foreach ($resp as $row) {
+                $status_id = $row['id'];
+                $status_name = $row['name'];
+                echo "<td> <input class='status checkbox' name='s{$status_id}' type='checkbox' value='1' name='s0'";
+                if(isset($_GET["s{$status_id}"]))
+                  echo "checked";
+                echo "> {$status_name}</input> </td>";
+              }
+            ?>
           </tr>
           <tr>
             <td> <button type='button' onclick="selectAll('status');"> Выделить всё </button> </td>

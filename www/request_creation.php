@@ -11,13 +11,17 @@ $type = $_POST['type'];
 $category = $_POST['category'];
 $user_id = $_SESSION['uid'];
 $description = $_POST['description'];
+$city_id = $_POST['city'];
+$street_id = $_POST['street'];
 $date = date("Y-m-d");
 
-$conn->query("
-  INSERT INTO `requests`
-  (`id`, `type_id`, `category_id`, `user_id`, `creation_date`, `closing_date`, `operator_id`, `crew_id`, `description`, `status_id`)
+$sql = "
+  INSERT INTO `hcs`.`requests`
+  (`id`, `user_id`, `type_id`, `category_id`, `description`, `city_id`, `street_id`, `house`, `flat`, `operator_id`, `operator_note`, `crew_id`, `foreman_note`, `creation_date`, `closing_date`, `status_id`)
   VALUES
-  ('', '$type', '$category', '$user_id', '$date', NULL, NULL, NULL, '$description', '0')
-");
+  (NULL, '{$user_id}', '{$type}', '{$category}', '{$description}', '{$city_id}', '{$street_id}', NULL, NULL, NULL, NULL, NULL, NULL, '{$date}', '0000-00-00 00:00:00', '0')"
+;
+
+$conn->query($sql);
 
 header('location: my_requests.php?s0=1&s1=1&s2=1&s3=1');

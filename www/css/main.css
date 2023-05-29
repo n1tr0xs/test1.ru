@@ -111,9 +111,6 @@ th {
   word-wrap: break-word;
 }
 
-th {
-  text-align: center;
-}
 thead {
   border-bottom: 1px solid #dbdbdb;
   border-bottom: 1px solid var(--border);
