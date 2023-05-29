@@ -29,7 +29,8 @@ if (isset($_POST) && isset($_POST['uname']) && isset($_POST['password'])) {
   $pass = $_POST['password'];
   $logged = false;
   foreach ($ALL_USER_TYPES as $t=>$db) {
-    $result = $conn->query("SELECT id, login, password from {$db} where login='{$uname}' and password='{$pass}'");
+    $sql = "SELECT id, login, password from {$db} where login='{$uname}' and password='{$pass}'";
+    $result = $conn->query($sql);
     if(mysqli_num_rows($result)){
       $logged = true;
       $r = $result->fetch_assoc();

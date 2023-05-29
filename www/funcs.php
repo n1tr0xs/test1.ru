@@ -24,10 +24,11 @@ function request_info($row){
   $status = $row['status'];
   $address = "{$row['city_type']} {$row['city']}, {$row['street_type']} {$row['street']}";
 
-  if($row['house'])
+  if($row['house']){
     $address .= ", д.{$row['house']}";
-  if($row['flat'])
-    $address .= ", кв.{$row['flat']}";
+    if($row['flat'])
+      $address .= ", кв.{$row['flat']}";
+  }
 
   return array(
     "id"=>$row['id'],
