@@ -10,7 +10,7 @@ $conn = mysqli_connect($sname, $unmae, $password, $db_name);
 $ALL_USER_TYPES = array(
   'user' => 'users',
   'operator' => 'operators',
-  'foreman' => 'foremans' // TODO : rename to foremen
+  'foreman' => 'foremen'
 );
 
 if (!$conn) {
