@@ -48,7 +48,15 @@
       </li>
       <li class='form-row' id='city_li'>
         <label> Выберите нас. пункт: </label>
-
+        <select id='city' name='city' onchange="loadStreets();">
+          <option selected disabled>-----</option>
+          <?
+            $res = $conn->query("select * from cities");
+            $res = $res->fetch_all(MYSQLI_ASSOC);
+            foreach ($res as $row) {
+              echo "<option value={$row['id']}> {$row['type']} {$row['name']} </option> ";
+          }
+          ?>
       </li>
       <ul>
     </form>
