@@ -8,7 +8,23 @@ auth_redirect();
 <html>
 <head>
   <link rel='stylesheet' href='css/main.css'>
-  <script type="text/javascript" src="js/scripts.js"> </script>
+  <script type="text/javascript">
+    function selectAll(name){
+      childs = document.querySelectorAll('form[name="status"] input[type="checkbox"]');
+      childs.forEach((cb) => {
+        cb.checked = true;
+      });
+      return;
+    }
+
+    function unselectAll(name){
+      var childs = document.querySelectorAll('form[name="status"] input[type="checkbox"]');
+      childs.forEach((cb) => {
+        cb.checked = false;
+      });
+      return;
+    }
+  </script>
 </head>
 <body>
   <? include "header.php" ?>

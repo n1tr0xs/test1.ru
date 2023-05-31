@@ -6,14 +6,21 @@ session_start();
 if(isset($_POST['uname']) && isset($_POST['password'])){
   $login = $_POST['uname'];
   $password = $_POST['password'];
-  $r = $conn->query("select login from users where login='{$login}'");
-  if(mysqli_num_rows($r)){
+  $flag = false;
+  foreach ($ALL_USER_TYPES as $t=>$db) {
+    $r = $conn->query("select login from {$db} where login='{$login}'");
+    if(mysqli_num_rows($r)){
+      $flag = true;
+      break;
+    }
+  }
+  if($flag){
     header("location: registration.php?act=error");
-  } else{
+  }
+  else {
     $r = $conn->query('SELECT max(id) from users');
     $r = $r->fetch_array();
     $id = $r['max(id)'] + 1;
-    // echo "insert into users VALUES ({$id}, '{$login}', '{$password}', NULL, NULL, NULL, NULL, NULL)";
     $conn->query("insert into users VALUES ('', '{$login}', '{$password}', NULL, NULL, NULL, NULL, NULL, NULL)");
     header("location: login.php?act=reg");
   }
