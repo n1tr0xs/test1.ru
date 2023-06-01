@@ -568,7 +568,7 @@ li.navbar {
   float: left;
 }
 
-.right {
+li.right {
   float: right;
 }
 
@@ -618,4 +618,8 @@ button.red {
 }
 button.green {
   background-color: green;
+}
+
+label.right {
+  float: right;
 }

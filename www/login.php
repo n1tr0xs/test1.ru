@@ -77,7 +77,7 @@ if (isset($_POST) && isset($_POST['uname']) && isset($_POST['password'])) {
       </li>
       <li class='form-row'>
         <button type="submit">Войти</button>
-        <a href='registration.php'> Зарегестрироваться </a>
+        <a href='registration.php'> Зарегистрироваться </a>
       </li>
     </ul>
   </form>

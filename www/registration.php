@@ -48,7 +48,7 @@ if(isset($_POST['uname']) && isset($_POST['password'])){
           <input type="password" name="password" placeholder="Пароль" required>
         </li>
         <li class='form-row'>
-          <button type="submit">Зарегестрироваться</button>
+          <button type="submit">Зарегистрироваться</button>
         </li>
       </ul>
     </form>
