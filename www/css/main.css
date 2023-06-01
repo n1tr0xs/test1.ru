@@ -338,6 +338,7 @@ input {
 }
 
 button {
+  cursor: pointer;
   color: #1d1d1d;
   color: var(--form-text);
   background-color: #efefef;
@@ -557,6 +558,7 @@ footer {
 
 /* Navbar */
 ul.navbar {
+  border-color: #111;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -566,10 +568,14 @@ ul.navbar {
 
 li.navbar {
   float: left;
+  border-color: #111;
+  border-style: none solid none none;
 }
 
-li.right {
+li.navbar.right {
   float: right;
+  border-color: #111;
+  border-style: none none none solid;
 }
 
 li.navbar a {

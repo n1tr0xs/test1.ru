@@ -52,7 +52,7 @@
       </tr>
       <tr>
         <td colspan=2>
-          <a href='profile_change.php'> Изменить данные </a>
+          <button type='button' onclick='window.location.href="profile_change.php"'> Изменить данные </button>
         </td>
       </tr>
     </table>
