@@ -81,5 +81,6 @@ if (isset($_POST) && isset($_POST['uname']) && isset($_POST['password'])) {
       </li>
     </ul>
   </form>
+  <? include "footer.php" ?>
 </body>
 </html>
