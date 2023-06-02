@@ -85,10 +85,11 @@ if($_SESSION['user_type'] == 'operator'){
             <td> {$info['closing_date']} </td>
           </tr>
         ";
+        $status_color = $info['status_color'];
         echo "
           <tr>
             <td> Состояния заявки </td>
-            <td> {$info['status']} </td>
+            <td style='color: {$status_color};'> {$info['status']} </td>
           </tr>
         ";
       ?>

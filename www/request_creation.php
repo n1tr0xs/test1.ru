@@ -8,20 +8,36 @@ if (empty($_POST)){
 }
 
 $type = $_POST['type'];
+$resp = $conn->query("select id from types where name='{$type}'")->fetch_assoc();
+$type_id = $resp['id'];
+
 $category = $_POST['category'];
+$resp = $conn->query("select id from categories where name='{$type}'")->fetch_assoc();
+$category_id = $resp['id'];
+
+list($city_type, $city_name) = explode(' ', $_POST['city']);
+$resp = $conn->query("select id from cities where name='{$city_name}' and type='{$city_type}'")->fetch_assoc();
+$city_id = $resp['id'];
+
+$street = explode(' ', $_POST['street']);
+list($street_type, $street_name) = explode(' ', $_POST['street']);
+$resp = $conn->query("select id from streets where name='{$street_name}' and type='{$street_type}' and city_id='{$city_id}'")->fetch_assoc();
+$street_id = $resp['id'];
+
 $user_id = $_SESSION['uid'];
 $description = $_POST['description'];
-$city_id = $_POST['city'];
-$street_id = $_POST['street'];
+
 $date = date("Y-m-d");
 
 $sql = "
   INSERT INTO `hcs`.`requests`
   (`id`, `user_id`, `type_id`, `category_id`, `description`, `city_id`, `street_id`, `house`, `flat`, `operator_id`, `operator_note`, `crew_id`, `foreman_note`, `creation_date`, `closing_date`, `status_id`)
   VALUES
-  (NULL, '{$user_id}', '{$type}', '{$category}', '{$description}', '{$city_id}', '{$street_id}', NULL, NULL, NULL, NULL, NULL, NULL, '{$date}', '0000-00-00 00:00:00', '0')"
+  (NULL, '{$user_id}', '{$type_id}', '{$category_id}', '{$description}', '{$city_id}', '{$street_id}', NULL, NULL, NULL, NULL, NULL, NULL, '{$date}', '0000-00-00 00:00:00', '0')"
 ;
+$resp = $conn->query($sql);
 
-$conn->query($sql);
-
-header('location: my_requests.php?s0=1&s1=1&s2=1&s3=1');
+if(!$resp)
+  header("location: create_request.php?act=error");
+else
+  header('location: my_requests.php?s0=1&s1=1&s2=1&s3=1');

@@ -52,7 +52,7 @@ $id = $_GET['id'];
 
     <form action='accept_exec.php' method='post'>
       <ul class='wrapper'>
-        <input name='id' type='hidden' value=<?echo $id; ?>> </input>
+        <input name='id' type='hidden' value=<?echo $id; ?>/>
         <li class='form-row'>
           <label> Выберите команду </label>
           <select name='crew_id'>

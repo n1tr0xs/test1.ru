@@ -9,21 +9,28 @@ auth_redirect();
 $uid = $_SESSION['uid'];
 $facial = $_POST['facial'];
 $fio = $_POST['fio'];
-$city = $_POST['city'];
-$street = $_POST['street'];
+
+list($city_type, $city_name) = explode(' ', $_POST['city']);
+$resp = $conn->query("select id from cities where name='{$city_name}' and type='{$city_type}'")->fetch_assoc();
+$city_id = $resp['id'];
+
+$street = explode(' ', $_POST['street']);
+list($street_type, $street_name) = explode(' ', $_POST['street']);
+$resp = $conn->query("select id from streets where name='{$street_name}' and type='{$street_type}' and city_id='{$city_id}'")->fetch_assoc();
+$street_id = $resp['id'];
+
 $house = $_POST['house'];
 $flat = $_POST['flat'];
 
-$resp = $conn->query("select * from users where id={$uid}");
-$resp = $resp->fetch_assoc();
-if(!$facial) $facial = $resp['facial'];
-if(!$fio) $fio = $resp['fio'];
+$default = $conn->query("select * from users where id={$uid}")->fetch_assoc();
+if(!$facial) $facial = $default['facial'];
+if(!$fio) $fio = $default['fio'];
 
 if(!$flat and $house)
   $flat = 'NULL';
-if(!$city) $city = $resp['city'];
-if(!$street) $street = $resp['street'];
-if(!$house) $house = $resp['house'];
+if(!$city) $city = $default['city'];
+if(!$street) $street = $default['street'];
+if(!$house) $house = $default['house'];
 
 
 $conn->query("

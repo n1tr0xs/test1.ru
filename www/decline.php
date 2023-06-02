@@ -51,7 +51,7 @@ $id = $_GET['id'];
       </tr>
     </table>
     <form action='decline_exec.php' method='post'>
-      <input name='id' type='hidden' value=<?echo $id; ?>> </input>
+      <input name='id' type='hidden' value=<?echo $id; ?>/>
       <textarea name="description" cols="50" rows="10" placeholder="Причина отклонения запроса" required></textarea>
       </select>
       <button type='submit'>Отклонить запрос</button>

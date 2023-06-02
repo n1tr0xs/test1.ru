@@ -10,25 +10,25 @@ auth_redirect();
     <script type="text/javascript">
     function validateForm(){
       var el = document.getElementById('type');
-      if(el.selectedIndex == 0){
+      if(el.value == ''){
         el.setCustomValidity('Выберите тип услуги');
         return;
       } else el.setCustomValidity('');
 
       var el = document.getElementById('category');
-      if(el.selectedIndex == 0){
+      if(el.value == ''){
         el.setCustomValidity('Выберите категорию услуги');
         return;
       }else el.setCustomValidity('');
 
       var el = document.getElementById('city');
-      if(el.selectedIndex == 0){
+      if(el.value == ''){
         el.setCustomValidity('Выберите населенный пункт');
         return;
       }else el.setCustomValidity('');
 
       var el = document.getElementById('street');
-      if(el.selectedIndex == 0){
+      if(el.value == ''){
         el.setCustomValidity('Выберите улицу');
         return;
       }else el.setCustomValidity('');
@@ -38,18 +38,18 @@ auth_redirect();
         el.setCustomValidity('Опишите возникшую проблему');
         return;
       }else el.setCustomValidity('');
-
     }
-    
+
     function loadStreets(){
-      document.getElementById("street").innerHTML = "";
+      datalist = document.getElementById("streets");
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200)
-           document.getElementById("street").innerHTML = this.responseText;
+           datalist.innerHTML = this.responseText;
+           document.getElementById("street").disabled = false;
       };
       var selected = document.getElementById('city').value;
-      xhttp.open('get', 'get_streets.php?city_id='+selected, true);
+      xhttp.open('get', 'get_streets.php?city='+encodeURIComponent(selected), true);
       xhttp.send();
     }
     </script>
@@ -57,50 +57,51 @@ auth_redirect();
   <body>
     <? include "header.php" ?>
     <div class='content'>
+      <? if($_GET['act'] == 'error') echo "<label style='color: red;'> Возникла ошибка, проверьте правильность заполнения полей </label>"; ?>
       <form action='request_creation.php' method="post">
         <ul class='wrapper'>
           <li class='form-row'>
             <label> Тип услуги: </label>
-            <select id='type' name='type'>
-              <option selected disabled>-----</option>
+            <input id='type' list="types" name="type" type='text' oninput="loadStreets();">
+            <datalist id="types">
               <?
                 $res = $conn->query("SELECT * from types");
                 $res = $res->fetch_all(MYSQLI_ASSOC);
                 foreach ($res as $row)
-                  echo "<option value={$row['id']}> {$row['name']} </option>";
+                    echo "<option value='{$row['name']}'/>";
               ?>
-            </select>
+            </datalist>
+
           </li>
           <li class='form-row'>
             <label> Категория работ: </label>
-            <select id='category' name='category'>
-              <option selected disabled>-----</option>
+            <input id='category' list="categories" name="category" type='text' oninput="loadStreets();">
+            <datalist id="categories">
               <?
                 $res = $conn->query("SELECT * from categories");
                 $res = $res->fetch_all(MYSQLI_ASSOC);
-                foreach ($res as $row) {
-                    echo "<option value={$row['id']}> {$row['name']} </option>";
-                  }
+                foreach ($res as $row)
+                    echo "<option value='{$row['name']}'/>";
               ?>
-            </select>
+            </datalist>
           </li>
           <li class='form-row'>
-            <label> Выберите нас. пункт: </label>
-            <select id='city' name='city' onchange="loadStreets();">
-              <option selected disabled>-----</option>
+            <label> Выберите нас. пункт </label>
+            <input id='city' list="cities" name="city" type='text' oninput="loadStreets();">
+            <datalist id="cities">
               <?
                 $res = $conn->query("select * from cities");
                 $res = $res->fetch_all(MYSQLI_ASSOC);
-                foreach ($res as $row) {
-                  echo "<option value={$row['id']}> {$row['type']} {$row['name']} </option> ";
-              }
+                foreach ($res as $row)
+                  echo "<option value='{$row['type']} {$row['name']}' />";
               ?>
-            </select>
+            </datalist>
           </li>
           <li class='form-row'>
             <label> Выберите улицу </label>
-            <select name='street' id='street'>
-            </select>
+            <input id='street' list="streets" name="street" type='text' disabled>
+            <datalist id="streets">
+            </datalist>
           </li>
           <li class='form-row'>
             <label> Опишите заявку: </label>

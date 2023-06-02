@@ -456,6 +456,7 @@ label {
   vertical-align: middle;
   margin-bottom: 4px;
   display: inline-block;
+  white-space: nowrap;
 }
 
 textarea {

@@ -53,7 +53,7 @@ $uid = $_SESSION['uid'];
       </tr>
     </table>
     <form action='complete_exec.php' method='post'>
-      <? echo "<input type='hidden' name='id' value='{$id}'> </input>"; ?>
+      <? echo "<input type='hidden' name='id' value='{$id}'/>"; ?>
       <ul class='wrapper'>
         <li class='form-row'>
           <label> Описание </label>
