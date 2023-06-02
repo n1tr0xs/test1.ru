@@ -80,7 +80,7 @@ auth_redirect();
         $statuses = "(-1)";
       }
       $result = $conn->query("
-        SELECT r.id, r.user_id, r.description, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, r.category_id category_id, cg.name category
+        SELECT r.id, r.user_id, r.description, r.status_id, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, r.category_id category_id, cg.name category
         from requests r
           left join statuses s on(r.status_id=s.id)
           left join categories cg on (r.category_id=cg.id)
@@ -90,24 +90,25 @@ auth_redirect();
           (r.user_id={$uid}) and
           (r.status_id IN {$statuses})
         order by
+          status_id asc,
           creation_date desc
       ");
       $rows = $result->fetch_all(MYSQLI_ASSOC);
       foreach ($rows as $row) {
         $info = request_info($row);
         $created = date('d-m-Y', strtotime($info['creation_date']));
+        $status_color = $info['status_color'];
         echo
         "
         <tr>
           <td>{$info['category']}</td>
           <td>{$created}</td>
-          <td>{$info['status']}</td>
+          <td style='color: {$status_color};'>{$info['status']}</td>
           <td>{$info['address']}</td>
           <td><a href='request.php?id=${info['id']}'> Подробнее </a></td>
         </tr>
         ";
       }
-
     ?>
     <tr> </tr>
   </table>

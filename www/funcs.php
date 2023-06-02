@@ -21,7 +21,9 @@ function request_info($row){
   //   echo "{$key} -> {$value} <br>";
   // }
   $category = $row['category'];
+  $status_colors = array('white', 'blue', 'red', 'green');
   $status = $row['status'];
+
   $address = "{$row['city_type']} {$row['city']}, {$row['street_type']} {$row['street']}";
 
   if($row['house']){
@@ -33,6 +35,8 @@ function request_info($row){
   return array(
     "id"=>$row['id'],
     "category"=>$category,
+    "status_id"=>$row['status_id'],
+    "status_color"=>$status_colors[$row['status_id']],
     "status"=>$status,
     "address"=>$address,
     "description"=>$row['description'],

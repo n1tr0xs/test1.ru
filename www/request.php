@@ -3,7 +3,6 @@ include 'db_conn.php';
 include 'funcs.php';
 
 session_start();
-auth_redirect();
 
 $id = $_GET['id'];
 $uid = $_SESSION['uid'];
@@ -30,7 +29,7 @@ if($_SESSION['user_type'] == 'operator'){
     <table>
       <?
         $result = $conn->query("
-          SELECT r.id, r.user_id, r.description, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, r.category_id category_id, cg.name category
+          SELECT r.id, r.user_id, r.description, r.status_id, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, r.category_id category_id, cg.name category
           from requests r
             left join statuses s on(r.status_id=s.id)
             left join categories cg on (r.category_id=cg.id)
@@ -41,7 +40,6 @@ if($_SESSION['user_type'] == 'operator'){
           order by
             creation_date desc
         ");
-        // $result = $conn->query("select * from requests r left join statuses s on(r.status_id=s.id) where id={$id}");
         $result = $result->fetch_assoc();
         $info = request_info($result);
       ?>
@@ -85,6 +83,12 @@ if($_SESSION['user_type'] == 'operator'){
           <tr>
             <td> Дата закрытия заявки </td>
             <td> {$info['closing_date']} </td>
+          </tr>
+        ";
+        echo "
+          <tr>
+            <td> Состояния заявки </td>
+            <td> {$info['status']} </td>
           </tr>
         ";
       ?>

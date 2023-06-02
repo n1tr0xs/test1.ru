@@ -64,8 +64,8 @@ if (isset($_POST) && isset($_POST['uname']) && isset($_POST['password'])) {
   <form action="login.php" method="post">
     <ul class='wrapper'>
       <li class='form-row'>
-        <? if (isset($_GET['act']) && $_GET['act'] == 'error') echo "<label> Неверный логин или пароль! </label>"; ?>
-        <? if (isset($_GET['act']) && $_GET['act'] == 'reg') echo "<label> Вы успешно зарегестрированы! </label>"; ?>
+        <? if (isset($_GET['act']) && $_GET['act'] == 'error') echo "<label style='text-align: center;'> Неверный логин или пароль! </label>"; ?>
+        <? if (isset($_GET['act']) && $_GET['act'] == 'reg') echo "<label style='text-align: center;'> Вы успешно зарегестрированы! </label>"; ?>
       </li>
       <li class='form-row'>
         <label>Логин</label>
