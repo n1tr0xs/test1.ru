@@ -39,8 +39,11 @@ function request_info($row){
     "status_color"=>$status_colors[$row['status_id']],
     "status"=>$status,
     "address"=>$address,
+    "operator_note"=>$row['operator_note'],
+    "foreman_note"=>$row['foreman_note'],
     "description"=>$row['description'],
     "creation_date"=>$row['creation_date'],
+    "closing_date"=>$row['closing_date'],
     "category_id"=>$row['category_id'],
   );
 }

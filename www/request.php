@@ -29,7 +29,7 @@ if($_SESSION['user_type'] == 'operator'){
     <table>
       <?
         $result = $conn->query("
-          SELECT r.id, r.user_id, r.description, r.status_id, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, r.category_id category_id, cg.name category
+          SELECT r.id, r.user_id, r.description, r.status_id, r.operator_note, r.foreman_note, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, r.category_id category_id, cg.name category
           from requests r
             left join statuses s on(r.status_id=s.id)
             left join categories cg on (r.category_id=cg.id)
@@ -39,17 +39,12 @@ if($_SESSION['user_type'] == 'operator'){
             (r.id={$id})
           order by
             creation_date desc
-        ");
-        $result = $result->fetch_assoc();
+        ")->fetch_assoc();
         $info = request_info($result);
       ?>
       <tr>
         <td> Категория </td>
         <td> <? echo $info['category']; ?></td>
-      </tr>
-      <tr>
-        <td> Описание </td>
-        <td> <? echo $info['description']; ?> </td>
       </tr>
       <tr>
         <td> Адрес </td>
@@ -72,19 +67,21 @@ if($_SESSION['user_type'] == 'operator'){
             </tr>
           ";
         if($info['foreman_note'])
-        echo "
-          <tr>
-            <td> Заметка рабочей бригады </td>
-            <td> {$info['foreman_note']} </td>
-          </tr>
-        ";
-        if($info['closing_date'])
-        echo "
-          <tr>
-            <td> Дата закрытия заявки </td>
-            <td> {$info['closing_date']} </td>
-          </tr>
-        ";
+          echo "
+            <tr>
+              <td> Заметка рабочей бригады </td>
+              <td> {$info['foreman_note']} </td>
+            </tr>
+          ";
+        if($info['closing_date'] != '0000-00-00 00:00:00'){
+          $c = date('d-m-Y', strtotime($info['closing_date']));
+          echo "
+            <tr>
+              <td> Дата закрытия заявки </td>
+              <td> {$c} </td>
+            </tr>
+          ";
+        }
         $status_color = $info['status_color'];
         echo "
           <tr>

@@ -33,7 +33,7 @@ $sql = "
   INSERT INTO `hcs`.`requests`
   (`id`, `user_id`, `type_id`, `category_id`, `description`, `city_id`, `street_id`, `house`, `flat`, `operator_id`, `operator_note`, `crew_id`, `foreman_note`, `creation_date`, `closing_date`, `status_id`)
   VALUES
-  (NULL, '{$user_id}', '{$type_id}', '{$category_id}', '{$description}', '{$city_id}', '{$street_id}', NULL, NULL, NULL, NULL, NULL, NULL, '{$date}', '0000-00-00 00:00:00', '0')"
+  (NULL, '{$user_id}', '{$type_id}', '{$category_id}', '{$description}', '{$city_id}', '{$street_id}', NULL, NULL, NULL, NULL, NULL, NULL, '{$date}', '0', '0')"
 ;
 $resp = $conn->query($sql);
 
