@@ -64,6 +64,7 @@ fieldset {
   border: 1px var(--focus) solid;
   }
 }
+
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
   line-height: 1.4;
@@ -81,7 +82,6 @@ a {
 }
 
 @media (prefers-color-scheme: dark) {
-
   a {
   color: #41adff;
   color: var(--links);
@@ -95,8 +95,7 @@ a:hover {
 table {
   border-collapse: collapse;
   margin-bottom: 10px;
-  width: 100%;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 table caption {
@@ -108,7 +107,8 @@ th {
   padding: 6px;
   text-align: left;
   vertical-align: top;
-  word-wrap: break-word;
+  white-space: nowrap;
+  width: 1%;
 }
 
 thead {
@@ -287,7 +287,6 @@ footer {
 }
 
 @media (prefers-color-scheme: dark) {
-
   footer {
   color: #a9b1ba;
   color: var(--text-muted);
@@ -295,7 +294,6 @@ footer {
 }
 
 @media (prefers-color-scheme: dark) {
-
   footer {
   border-top: 1px solid #526980;
   border-top: 1px solid var(--border);
@@ -322,7 +320,6 @@ input {
 }
 
 @media (prefers-color-scheme: dark) {
-
   input {
   background-color: #161f27;
   background-color: var(--background);
@@ -330,7 +327,6 @@ input {
 }
 
 @media (prefers-color-scheme: dark) {
-
   input {
   color: #fff;
   color: var(--form-text);
@@ -354,7 +350,6 @@ button {
 }
 
 @media (prefers-color-scheme: dark) {
-
   button {
   background-color: #161f27;
   background-color: var(--background);
@@ -362,7 +357,6 @@ button {
 }
 
 @media (prefers-color-scheme: dark) {
-
   button {
   color: #fff;
   color: var(--form-text);
@@ -386,7 +380,6 @@ textarea {
 }
 
 @media (prefers-color-scheme: dark) {
-
   textarea {
   background-color: #161f27;
   background-color: var(--background);
@@ -394,7 +387,6 @@ textarea {
 }
 
 @media (prefers-color-scheme: dark) {
-
   textarea {
   color: #fff;
   color: var(--form-text);
@@ -417,7 +409,6 @@ select {
 }
 
 @media (prefers-color-scheme: dark) {
-
   select {
   background-color: #161f27;
   background-color: var(--background);
@@ -425,7 +416,6 @@ select {
 }
 
 @media (prefers-color-scheme: dark) {
-
   select {
   color: #fff;
   color: var(--form-text);
@@ -445,7 +435,6 @@ button:hover {
 }
 
 @media (prefers-color-scheme: dark) {
-
   button:hover {
   background: #040a0f;
   background: var(--button-hover);
@@ -492,7 +481,6 @@ input:focus {
 }
 
 @media (prefers-color-scheme: dark) {
-
   input:focus {
   box-shadow: 0 0 0 2px #0096bfab;
   box-shadow: 0 0 0 2px var(--focus);
@@ -505,7 +493,6 @@ select:focus {
 }
 
 @media (prefers-color-scheme: dark) {
-
   select:focus {
   box-shadow: 0 0 0 2px #0096bfab;
   box-shadow: 0 0 0 2px var(--focus);
@@ -518,7 +505,6 @@ button:focus {
 }
 
 @media (prefers-color-scheme: dark) {
-
   button:focus {
   box-shadow: 0 0 0 2px #0096bfab;
   box-shadow: 0 0 0 2px var(--focus);
@@ -531,7 +517,6 @@ textarea:focus {
 }
 
 @media (prefers-color-scheme: dark) {
-
   textarea:focus {
   box-shadow: 0 0 0 2px #0096bfab;
   box-shadow: 0 0 0 2px var(--focus);

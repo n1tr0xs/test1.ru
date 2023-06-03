@@ -36,8 +36,9 @@ $sql = "
   (NULL, '{$user_id}', '{$type_id}', '{$category_id}', '{$description}', '{$city_id}', '{$street_id}', NULL, NULL, NULL, NULL, NULL, NULL, '{$date}', '0', '0')"
 ;
 $resp = $conn->query($sql);
+$id = mysqli_insert_id($conn);
 
 if(!$resp)
   header("location: create_request.php?act=error");
 else
-  header('location: my_requests.php?s0=1&s1=1&s2=1&s3=1');
+  header("location: request.php?id={$id}");

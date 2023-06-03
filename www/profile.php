@@ -28,34 +28,30 @@
         <td> <? echo $info['login']; ?></td>
       </tr>
       <tr>
-        <td> ФИО </td>
+        <td> Фамилия Имя Отчество </td>
         <td> <? echo $info['fio']; ?></td>
-      </tr>
-      <tr>
-        <td> Лицевой счет </td>
-        <td> <? echo $info['facial']; ?></td>
       </tr>
       <tr>
         <td> Адрес </td>
         <td>
-          <?
-          $address = "{$info['city']}, {$info['street']}";
-
-          if($info['house']){
-            $address .= ", д.{$info['house']}";
-            if($info['flat'])
-              $address .= ", кв.{$info['flat']}";
+        <?
+          if($info['city']){
+            echo $info['city'];
+            if($info['street']){
+              echo ", {$info['street']}";
+              if($info['house']){
+                echo ", д.{$info['house']}";
+                if($info['flat'])
+                  echo ", кв.{$info['flat']}";
+              }
+            }
           }
           echo $address;
-          ?>
-        </td>
-      </tr>
-      <tr>
-        <td colspan=2>
-          <button type='button' onclick='window.location.href="profile_change.php"'> Изменить данные </button>
+        ?>
         </td>
       </tr>
     </table>
+    <button type='button' onclick='window.location.href="profile_change.php"'> Изменить данные </button>
   </div>
   <? include "footer.php" ?>
 </body>

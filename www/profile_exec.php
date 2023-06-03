@@ -32,17 +32,20 @@ if(!$city) $city = $default['city'];
 if(!$street) $street = $default['street'];
 if(!$house) $house = $default['house'];
 
-
-$conn->query("
+$sql = "
   update users
   set
     facial='{$facial}',
     fio='{$fio}',
-    city_id={$city},
-    street_id={$street},
+    city_id={$city_id},
+    street_id={$street_id},
     house={$house},
     flat={$flat}
   where id={$uid}
-");
+";
+$resp = $conn->query($sql);
 
-header("location: profile.php");
+if(!$resp)
+  echo $sql;
+else
+  header("location: profile.php");

@@ -24,12 +24,17 @@ function request_info($row){
   $status_colors = array('white', 'blue', 'red', 'green');
   $status = $row['status'];
 
-  $address = "{$row['city_type']} {$row['city']}, {$row['street_type']} {$row['street']}";
-
-  if($row['house']){
-    $address .= ", д.{$row['house']}";
-    if($row['flat'])
-      $address .= ", кв.{$row['flat']}";
+  $address = "";
+  if($row['city']){
+    $address .= "{$row['city']}";
+    if($row['street']){
+      $address .= ", {$row['street']}";
+      if($row['house']){
+        $address .= ", д.{$row['house']}";
+        if($row['flat'])
+          $address .= ", кв.{$row['flat']}";
+      }
+    }
   }
 
   return array(
