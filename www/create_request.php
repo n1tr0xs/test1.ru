@@ -11,8 +11,11 @@ auth_redirect();
     <script src="js/main.js"> </script>
     <script type='text/javascript'>
     function addSpaces(initial){
-      initial.replace("/([0-9]{3})/","\1 ");
-      initial.replace("/[0-9]{3} ([0-9]{3})/","\1 ");
+      initial = initial.replace(/[^+\s0-9]/g, '');
+      initial = initial.replace(/\+7\s*/gm, '+7 ');
+      initial = initial.replace(/\+7\s*([0-9]{3})\s*/gm, `+7 $1 `);
+      initial = initial.replace(/\+7\s*([0-9]{3})\s*([0-9]{3})\s*/gm, `+7 $1 $2 `);
+      initial = initial.replace(/\+7\s*([0-9]{3})\s*([0-9]{3})\s*([0-9]{4})/gm, `+7 $1 $2 $3`);
       return initial;
     }
     </script>
@@ -76,7 +79,7 @@ auth_redirect();
           </li>
           <li class='form-row'>
             <label class='required'> Номер телефона </label>
-            <input id='phone' type='tel' name='phone' pattern="\+[0-9]{1,2}\s*[0-9]{3}\s*[0-9]{4}" onchange="this.value=addSpaces(this.value);" placeholder="+7 959 123 1234"/>
+            <input id='phone' type='tel' name='phone' pattern="\+7[0-9]{3}[0-9]{3}[0-9]{4}" oninput="this.value = addSpaces(this.value);" placeholder="+7 959 123 1234"/>
           </li>
           <li class='form-row'>
             <label class='required'> Описание заявки </label>

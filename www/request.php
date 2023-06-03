@@ -24,12 +24,12 @@ if($_SESSION['user_type'] == 'operator'){
     <link rel='stylesheet' href='css/main.css'>
 </head>
 <body>
-  <? include "header.php" ?>
+  <? include "header.php"; ?>
   <div class='content'>
     <table>
       <?
         $result = $conn->query("
-          SELECT r.id, r.user_id, r.description, r.status_id, r.operator_note, r.foreman_note, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, r.category_id category_id, cg.name category
+          SELECT r.id, r.user_id, r.description, r.phone, r.status_id, r.operator_note, r.foreman_note, r.creation_date, r.closing_date, CONCAT(ct.type, \" \", ct.name) city, CONCAT(st.type, \" \", st.name) street, r.house, r.flat, s.name status, r.category_id category_id, cg.name category
           from requests r
             left join statuses s on(r.status_id=s.id)
             left join categories cg on (r.category_id=cg.id)
@@ -55,7 +55,11 @@ if($_SESSION['user_type'] == 'operator'){
         <td> <? echo date('d-m-Y', strtotime($info['creation_date'])); ?> </td>
       </tr>
       <tr>
-        <td> Ваше описание </td>
+        <td> Номер телефона для связи </td>
+        <td> <? echo $info['phone']; ?> </td>
+      </tr>
+      <tr>
+        <td> <? echo ($_SESSION['user_type']=='user') ? "Ваше описание" : "Описание от пользователя" ?> </td>
         <td> <? echo $info['description']; ?> </td>
       </tr>
       <?
@@ -83,12 +87,13 @@ if($_SESSION['user_type'] == 'operator'){
           ";
         }
         $status_color = $info['status_color'];
-        echo "
-          <tr>
-            <td> Состояния заявки </td>
-            <td style='color: {$status_color};'> {$info['status']} </td>
-          </tr>
-        ";
+        if($_SESSION['user_type'] == 'user')
+          echo "
+            <tr>
+              <td> Состояния заявки </td>
+              <td style='color: {$status_color};'> {$info['status']} </td>
+            </tr>
+          ";
       ?>
     </table>
     <?
@@ -103,6 +108,6 @@ if($_SESSION['user_type'] == 'operator'){
       }
     ?>
   </div>
-  <? include "footer.php" ?>
+  <? include "footer.php"; ?>
 </body>
 </html>

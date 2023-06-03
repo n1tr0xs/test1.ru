@@ -100,6 +100,7 @@ table {
 
 table caption {
   text-align: center;
+  white-space: nowrap;
 }
 
 td,

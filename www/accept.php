@@ -10,6 +10,12 @@ $id = $_GET['id'];
 <html>
 <head>
     <link rel='stylesheet' href='css/main.css'>
+    <script type="text/javascript">
+      function validateForm() {
+        el = document.getElementById('crew');
+        el.setCustomValidity((el.value == -1) ? 'Выберите бригаду' : '');
+      }
+    </script>
 </head>
 <body>
   <? include "header.php" ?>
@@ -17,7 +23,7 @@ $id = $_GET['id'];
     <table>
       <?
         $result = $conn->query("
-          SELECT r.id, r.user_id, r.description, r.category_id, r.status_id, r.creation_date, r.closing_date, ct.type city_type, ct.name city , st.type street_type, st.name street, r.house, r.flat, s.name status, r.category_id category_id, cg.name category
+          SELECT r.id, r.user_id, r.description, r.phone, r.category_id, r.status_id, r.creation_date, r.closing_date, CONCAT(ct.type, \" \", ct.name) city, CONCAT(st.type, \" \", st.name) street, r.house, r.flat, s.name status, r.category_id category_id, cg.name category
           from requests r
             left join statuses s on(r.status_id=s.id)
             left join categories cg on (r.category_id=cg.id)
@@ -28,7 +34,6 @@ $id = $_GET['id'];
           order by
             creation_date desc
           ");
-        // $result = $conn->query("select * from requests r left join statuses s on(r.status_id=s.id) where id={$id}");
         $result = $result->fetch_assoc();
         $info = request_info($result);
       ?>
@@ -37,7 +42,7 @@ $id = $_GET['id'];
         <td> <? echo $info['category']; ?></td>
       </tr>
       <tr>
-        <td> Описание </td>
+        <td> Описание от пользователя </td>
         <td> <? echo $info['description']; ?> </td>
       </tr>
       <tr>
@@ -52,16 +57,17 @@ $id = $_GET['id'];
 
     <form action='accept_exec.php' method='post'>
       <ul class='wrapper'>
-        <input name='id' type='hidden' value=<?echo $id; ?>/>
+        <input name='id' type='hidden' value='<?echo $id; ?>'/>
         <li class='form-row'>
-          <label> Выберите команду </label>
-          <select name='crew_id'>
+          <label> Выберите бригаду </label>
+          <select id='crew' name='crew_id'>
+            <option selected disabled value='-1' />
             <?
               $category_id = $info['category_id'];
               $crews = $conn->query("
-                SELECT c.id id, c.number number
+                SELECT distinct(c.id) id, c.number number
                 from crews c
-                  join crew_category cc on (c.id=cc.crew_id)
+                  left join crew_category cc on (c.id=cc.crew_id)
                 where cc.category_id={$category_id}
               ");
               $crews = $crews->fetch_all(MYSQLI_ASSOC);
@@ -71,15 +77,15 @@ $id = $_GET['id'];
           </select>
         </li>
         <li class='form-row'>
-          <textarea name="note" cols="50" rows="10" placeholder="Описание"></textarea>
+          <textarea name="note" cols="50" rows="5" placeholder="Ваша заметка"></textarea>
         </li>
         <li class='form-row'>
-          <button type='submit'>Принять заявку</button>
+          <button type='submit' onclick="validateForm();"> Принять заявку </button>
         </li>
       </ul>
     </form>
 
-    <table>
+    <table style="width: 100%">
       <caption> Адреса принятых заявок у каждой бригады </caption>
       <tr>
         <?
@@ -94,7 +100,7 @@ $id = $_GET['id'];
           $crew_id = $row['id'];
           $crew_requests[$crew_id] = array();
           $rr = $conn->query("
-            select c.type city_type, c.name city, s.type street_type, s.name street
+            select CONCAT(c.type, \" \", c.name) city, CONCAT(s.type, \" \", s.name) street
             from requests r
               left join cities c on (r.city_id=c.id)
               left join streets s on (r.street_id=s.id)
@@ -109,7 +115,6 @@ $id = $_GET['id'];
           }
           $max_len = max(sizeof($crew_requests[$crew_id], 0), $max_len);
         }
-
         for($i=0; $i<$max_len; ++$i){
           echo "<tr>";
           foreach ($crew_requests as $key => $value) {

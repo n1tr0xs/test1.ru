@@ -44,6 +44,7 @@ function request_info($row){
     "status_color"=>$status_colors[$row['status_id']],
     "status"=>$status,
     "address"=>$address,
+    "phone"=>$row['phone'],
     "operator_note"=>$row['operator_note'],
     "foreman_note"=>$row['foreman_note'],
     "description"=>$row['description'],
