@@ -616,3 +616,7 @@ button.green {
 label.right {
   float: right;
 }
+
+ul.unit {
+  display: none;
+}
