@@ -16,7 +16,7 @@
     <table>
       <?
         $resp = $conn->query("
-          select u.login login, u.fio fio, u.facial facial, CONCAT(c.type, \" \", c.name) city, CONCAT(s.type, \" \", s.name) street, u.house house, u.flat flat
+          select u.login login, u.fio fio, CONCAT(c.type, \" \", c.name) city, CONCAT(s.type, \" \", s.name) street, u.house house, u.flat flat
           from users u
             left join cities c on (u.city_id=c.id)
             left join streets s on (u.street_id=s.id)

@@ -27,7 +27,6 @@
           ");
           $info = $result->fetch_assoc();
           $login = $info['login'];
-          $facial = $info['facial'];
           $fio = $info['fio'];
           $address = $info['address'];
         ?>

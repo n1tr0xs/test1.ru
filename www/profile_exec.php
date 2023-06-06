@@ -7,7 +7,6 @@ auth_redirect();
 
 
 $uid = $_SESSION['uid'];
-$facial = $_POST['facial'];
 $fio = $_POST['fio'];
 
 list($city_type, $city_name) = explode(' ', $_POST['city']);
@@ -23,7 +22,6 @@ $house = $_POST['house'];
 $flat = $_POST['flat'];
 
 $default = $conn->query("select * from users where id={$uid}")->fetch_assoc();
-if(!$facial) $facial = $default['facial'];
 if(!$fio) $fio = $default['fio'];
 
 if(!$flat and $house)
@@ -35,7 +33,6 @@ if(!$house) $house = $default['house'];
 $sql = "
   update users
   set
-    facial='{$facial}',
     fio='{$fio}',
     city_id={$city_id},
     street_id={$street_id},
