@@ -6,7 +6,13 @@
       $(document).ready(function(){
         $("a.show").on('click', function(){
           var href = $(this).attr('href');
-          $("ul"+href).css('display', ($("ul"+href).css('display') == 'none') ? 'block' : 'none');
+          var now_disp = $("ul"+href).css('display');
+          if(now_disp == 'none'){
+            $("ul"+href).css('display', 'block');
+          } else if (now_disp == 'block') {
+            $("ul"+href).css('display', 'none');
+          }
+          );
         });
       });
     </script>
